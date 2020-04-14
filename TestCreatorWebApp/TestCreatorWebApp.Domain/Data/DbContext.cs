@@ -4,8 +4,12 @@ using TestCreatorWebApp.Data.Models.DAO;
 
 namespace TestCreatorWebApp.Domain.Data
 {
-    public class DbContext : IdentityDbContext<ApplicationUser>
+    public class EfDbContext : IdentityDbContext<ApplicationUser>
     {
+        public EfDbContext(DbContextOptions options) : base(options)
+        {
+
+        }
 
         public DbSet<Test> Tests { get; set; }
         public DbSet<Question> Questions { get; set; }

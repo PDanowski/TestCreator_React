@@ -1,11 +1,19 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Text;
+using TestCreatorWebApp.Data.Models.DAO;
+using TestCreatorWebApp.Domain.Data;
 
 namespace TestCreatorWebApp
 {
@@ -23,11 +31,54 @@ namespace TestCreatorWebApp
         {
             services.AddControllersWithViews();
 
+            services.AddEntityFrameworkSqlServer();
+
+            services.AddDbContext<Domain.Data.EfDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequiredLength = 8;
+            })
+            .AddEntityFrameworkStores<Domain.Data.EfDbContext>();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(config =>
+                {
+                    config.RequireHttpsMetadata = false;
+                    config.SaveToken = true;
+                    config.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidIssuer = Configuration["Auth:Jwt:Issuer"],
+                        ValidAudience = Configuration["Auth:Jwt:Audience"],
+                        IssuerSigningKey =
+                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Auth:Jwt:Key"])),
+                        ClockSkew = TimeSpan.Zero,
+
+                        //security
+                        RequireExpirationTime = true,
+                        ValidateIssuer = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidateAudience = true
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,7 +96,16 @@ namespace TestCreatorWebApp
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            //disable cache for static files
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = (context =>
+                {
+                    context.Context.Response.Headers["Cache-Control"] = Configuration["StaticFiles:Headers:Cache-Control"];
+                    context.Context.Response.Headers["Pragma"] = Configuration["StaticFiles:Headers:Pragma"];
+                    context.Context.Response.Headers["Expires"] = Configuration["StaticFiles:Headers:Expires"];
+                })
+            });
             app.UseSpaStaticFiles();
 
             app.UseRouting();
@@ -66,6 +126,17 @@ namespace TestCreatorWebApp
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<Domain.Data.EfDbContext>();
+                var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+                var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+
+                context.Database.Migrate();
+
+                DbSeeder.Seed(context, roleManager, userManager);
+            }
         }
     }
 }

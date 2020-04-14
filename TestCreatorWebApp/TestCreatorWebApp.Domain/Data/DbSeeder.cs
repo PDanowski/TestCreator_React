@@ -12,7 +12,7 @@ namespace TestCreatorWebApp.Domain.Data
 {
     public static class DbSeeder
     {
-        public static void Seed(DbContext context,
+        public static void Seed(EfDbContext context,
             RoleManager<IdentityRole> roleManager,
             UserManager<ApplicationUser> userManager)
         {
@@ -29,7 +29,7 @@ namespace TestCreatorWebApp.Domain.Data
             }
         }
 
-        private static void CreateTests(DbContext context)
+        private static void CreateTests(EfDbContext context)
         {
             DateTime creationDate = new DateTime(2018, 03, 01, 12, 00, 00);
             DateTime modificationDate = DateTime.Now;
@@ -83,7 +83,7 @@ namespace TestCreatorWebApp.Domain.Data
             context.SaveChanges();
         }
 
-        private static void CreateSampleTest(DbContext context,
+        private static void CreateSampleTest(EfDbContext context,
             int num,
             string authorId,
             int viewCount,
@@ -149,7 +149,7 @@ namespace TestCreatorWebApp.Domain.Data
             context.SaveChanges();
         }
 
-        private static async Task CreateUsers(DbContext context,
+        private static async Task CreateUsers(EfDbContext context,
             RoleManager<IdentityRole> roleManager,
             UserManager<ApplicationUser> userManager)
         {
