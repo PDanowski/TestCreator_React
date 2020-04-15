@@ -18,9 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="Converters\" />
-    <Folder Include="Queries\" />
+    <Folder Include="Converters\Interfaces\" />
   </ItemGroup>
 
 </Project>
