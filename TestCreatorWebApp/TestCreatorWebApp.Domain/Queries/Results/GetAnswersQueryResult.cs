@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TestCreatorWebApp.Data.Models.DTO;
+﻿using System.Collections.Generic;
+using TestCreatorWebApp.Domain.Models.DTO;
 using TestCreatorWebApp.Domain.Queries.Interfaces;
 
-namespace TestCreatorWebApp.Domain.Queries
+namespace TestCreatorWebApp.Domain.Queries.Results
 {
     public class GetAnswersQueryResult : IQueryResult
     {
-        IEnumerable<Answer> Answers { get; }
+        public IEnumerable<Answer> Answers { get; set; }
     }
 }
