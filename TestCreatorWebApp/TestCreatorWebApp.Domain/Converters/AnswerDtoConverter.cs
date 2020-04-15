@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
+﻿using AutoMapper;
+using TestCreatorWebApp.Data.Converters.Interfaces;
+using Answer = TestCreatorWebApp.Data.Models.DTO.Answer;
 using DAO = TestCreatorWebApp.Data.Models.DAO;
-using TestCreatorWebApp.Domain.Converters.Interfaces;
-using TestCreatorWebApp.Domain.Models.DTO;
 
-namespace TestCreatorWebApp.Domain.Converters
+namespace TestCreatorWebApp.Data.Converters
 {
     class AnswerDtoConverter : IAnswerDtoConverter
     {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TestCreatorWebApp.Domain.Consts
+﻿namespace TestCreatorWebApp.Data.Consts
 {
     public class UserRoles
     {

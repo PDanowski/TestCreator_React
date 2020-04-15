@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TestCreatorWebApp.Domain.Models.DTO
+namespace TestCreatorWebApp.Data.Models.DTO
 {
     public class Question
     {

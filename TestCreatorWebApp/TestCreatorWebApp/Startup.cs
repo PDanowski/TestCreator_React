@@ -12,8 +12,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
+using TestCreatorWebApp.Data.Database;
 using TestCreatorWebApp.Data.Models.DAO;
-using TestCreatorWebApp.Domain.Data;
 
 namespace TestCreatorWebApp
 {
@@ -33,7 +33,7 @@ namespace TestCreatorWebApp
 
             services.AddEntityFrameworkSqlServer();
 
-            services.AddDbContext<Domain.Data.EfDbContext>(options =>
+            services.AddDbContext<EfDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
@@ -52,7 +52,7 @@ namespace TestCreatorWebApp
                 options.Password.RequireNonAlphanumeric = true;
                 options.Password.RequiredLength = 8;
             })
-            .AddEntityFrameworkStores<Domain.Data.EfDbContext>();
+            .AddEntityFrameworkStores<EfDbContext>();
 
             services.AddAuthentication(options =>
             {
@@ -129,7 +129,7 @@ namespace TestCreatorWebApp
 
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetService<Domain.Data.EfDbContext>();
+                var context = serviceScope.ServiceProvider.GetService<EfDbContext>();
                 var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
                 var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
 

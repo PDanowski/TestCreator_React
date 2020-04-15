@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TestCreatorWebApp.Domain.Queries.Interfaces;
+﻿using TestCreatorWebApp.Data.Queries.Interfaces;
 
-namespace TestCreatorWebApp.Domain.Queries
+namespace TestCreatorWebApp.Data.Queries
 {
     public class GetAnswersQuery : IQuery
     {

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using TestCreatorWebApp.Domain.Commands.Interfaces;
-using TestCreatorWebApp.Domain.Data;
+﻿using System.Threading.Tasks;
+using TestCreatorWebApp.Data.Commands.Handlers.Common.Interfaces;
+using TestCreatorWebApp.Data.Commands.Interfaces;
+using TestCreatorWebApp.Data.Database;
 
-namespace TestCreatorWebApp.Domain.Commands.Handlers
+namespace TestCreatorWebApp.Data.Commands.Handlers
 {
     public abstract class CommandHandler<TRequest> : ICommandHandler<TRequest>
             where TRequest : ICommand

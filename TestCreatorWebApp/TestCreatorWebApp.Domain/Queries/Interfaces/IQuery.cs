@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TestCreatorWebApp.Domain.Queries.Interfaces
+﻿namespace TestCreatorWebApp.Data.Queries.Interfaces
 {
     public interface IQuery
     {

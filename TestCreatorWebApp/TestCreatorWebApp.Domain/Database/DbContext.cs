@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using TestCreatorWebApp.Data.Models.DAO;
 
-namespace TestCreatorWebApp.Domain.Data
+namespace TestCreatorWebApp.Data.Database
 {
     public class EfDbContext : IdentityDbContext<ApplicationUser>
     {

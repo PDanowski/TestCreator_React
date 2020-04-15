@@ -1,14 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using TestCreatorWebApp.Data.Consts;
 using TestCreatorWebApp.Data.Models.DAO;
-using TestCreatorWebApp.Domain.Consts;
 
-namespace TestCreatorWebApp.Domain.Data
+namespace TestCreatorWebApp.Data.Database
 {
     public static class DbSeeder
     {

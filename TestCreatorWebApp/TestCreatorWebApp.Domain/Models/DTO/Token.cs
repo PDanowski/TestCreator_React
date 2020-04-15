@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestCreatorWebApp.Domain.Models.DTO
+namespace TestCreatorWebApp.Data.Models.DTO
 {
     public class Token
     {

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using TestCreatorWebApp.Domain.Data;
-using TestCreatorWebApp.Domain.Queries.Interfaces;
+﻿using System.Threading.Tasks;
+using TestCreatorWebApp.Data.Database;
+using TestCreatorWebApp.Data.Queries.Handlers.Common.Interfaces;
+using TestCreatorWebApp.Data.Queries.Interfaces;
 
-namespace TestCreatorWebApp.Domain.Queries.Handlers
+namespace TestCreatorWebApp.Data.Queries.Handlers.Common
 {
     public abstract class QueryHandler<TParameter, TResult> : IQueryHandler<TParameter, TResult>
         where TResult : IQueryResult, new()

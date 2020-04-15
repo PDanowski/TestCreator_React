@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TestCreatorWebApp.Domain.Models.DTO;
-using DAO = TestCreatorWebApp.Data.Models.DAO;
+﻿using DAO = TestCreatorWebApp.Data.Models.DAO;
+using Question = TestCreatorWebApp.Data.Models.DTO.Question;
 
-namespace TestCreatorWebApp.Domain.Converters.Interfaces
+namespace TestCreatorWebApp.Data.Converters.Interfaces
 {
     public interface IQuestionDtoConverter
     {

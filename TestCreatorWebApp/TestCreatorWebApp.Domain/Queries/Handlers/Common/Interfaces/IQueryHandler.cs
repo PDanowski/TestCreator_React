@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using TestCreatorWebApp.Domain.Queries.Interfaces;
+using TestCreatorWebApp.Data.Queries.Interfaces;
 
-namespace TestCreatorWebApp.Domain.Queries.Handlers
+namespace TestCreatorWebApp.Data.Queries.Handlers.Common.Interfaces
 {
     public interface IQueryHandler<in TParameter, TResult> where TResult : IQueryResult where TParameter : IQuery
     {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using TestCreatorWebApp.Domain.Models.DTO;
-using TestCreatorWebApp.Domain.Queries.Interfaces;
+using TestCreatorWebApp.Data.Models.DTO;
+using TestCreatorWebApp.Data.Queries.Interfaces;
 
-namespace TestCreatorWebApp.Domain.Queries.Results
+namespace TestCreatorWebApp.Data.Queries.Results
 {
     public class GetAnswersQueryResult : IQueryResult
     {

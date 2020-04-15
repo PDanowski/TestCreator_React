@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using TestCreatorWebApp.Domain.Commands.Interfaces;
+using TestCreatorWebApp.Data.Commands.Interfaces;
 
-namespace TestCreatorWebApp.Domain.Commands.Handlers
+namespace TestCreatorWebApp.Data.Commands.Handlers.Common.Interfaces
 {
     public interface ICommandHandler<in TParameter> where TParameter : ICommand
     {

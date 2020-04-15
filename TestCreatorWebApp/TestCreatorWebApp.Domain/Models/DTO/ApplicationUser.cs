@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
-namespace TestCreatorWebApp.Domain.Models.DTO
+namespace TestCreatorWebApp.Data.Models.DTO
 {
     public class ApplicationUser : IdentityUser
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace TestCreatorWebApp.Domain.Migrations
+namespace TestCreatorWebApp.Data.Migrations
 {
     public partial class Initial : Migration
     {
