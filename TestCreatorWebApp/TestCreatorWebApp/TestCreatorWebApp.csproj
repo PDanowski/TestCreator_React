@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="5.1.2" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.3" />
@@ -34,12 +35,13 @@
     <Folder Include="Data\Commands\" />
     <Folder Include="Data\Queries\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Bootstrapers\" />
     <Folder Include="Services\Interfaces\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TestCreatorWebApp.Domain\TestCreatorWebApp.Data.csproj" />
+    <ProjectReference Include="..\TestCreatorWebApp.Data\TestCreatorWebApp.Data.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

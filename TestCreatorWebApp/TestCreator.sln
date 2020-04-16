@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCreatorWebApp", "TestCr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCreatorWebApp.Tests", "TestCreatorWebApp.Tests\TestCreatorWebApp.Tests.csproj", "{74BD6D5D-6DEA-4014-8B59-AF5C6950EFFF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCreatorWebApp.Data", "TestCreatorWebApp.Domain\TestCreatorWebApp.Data.csproj", "{BBF5B7D5-C68B-4C1F-9BD0-6CF59D1DFEB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCreatorWebApp.Data", "TestCreatorWebApp.Data\TestCreatorWebApp.Data.csproj", "{BBF5B7D5-C68B-4C1F-9BD0-6CF59D1DFEB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
