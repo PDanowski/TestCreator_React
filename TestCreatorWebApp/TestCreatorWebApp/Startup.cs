@@ -14,6 +14,7 @@ using System;
 using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using TestCreatorWebApp.Bootstrappers;
 using TestCreatorWebApp.Data.Database;
 using TestCreatorWebApp.Data.Models.DAO;
 using TestCreatorWebApp.Data.Extensions;
@@ -28,7 +29,6 @@ namespace TestCreatorWebApp
         }
 
         public IConfiguration Configuration { get; }
-        public ILifetimeScope AutofacContainer { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -86,7 +86,9 @@ namespace TestCreatorWebApp
 
             var builder = new ContainerBuilder();
 
-
+            builder.RegisterInfrastructure();
+            builder.RegisterConverters();
+            builder.RegisterDataConverters();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -134,11 +136,6 @@ namespace TestCreatorWebApp
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
-
-            // If, for some reason, you need a reference to the built container, you
-            // can use the convenience extension method GetAutofacRoot.
-            this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
-
 
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {

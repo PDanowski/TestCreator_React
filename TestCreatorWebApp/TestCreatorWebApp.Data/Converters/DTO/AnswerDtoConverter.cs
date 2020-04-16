@@ -1,23 +1,22 @@
 ﻿using AutoMapper;
-using TestCreatorWebApp.Data.Converters.Interfaces;
+using TestCreatorWebApp.Data.Converters.DTO.Interfaces;
 using Answer = TestCreatorWebApp.Data.Models.DTO.Answer;
-using DAO = TestCreatorWebApp.Data.Models.DAO;
 
-namespace TestCreatorWebApp.Data.Converters
+namespace TestCreatorWebApp.Data.Converters.DTO
 {
-    class AnswerDtoConverter : IAnswerDtoConverter
+    public class AnswerDtoConverter : IAnswerDtoConverter
     {
         private readonly IMapper _mapper;
 
         public AnswerDtoConverter()
         {
-            var mapperConfig = new MapperConfiguration(cfg => { cfg.CreateMap<DAO.Answer, Answer>(); });
+            var mapperConfig = new MapperConfiguration(cfg => { cfg.CreateMap<Models.DAO.Answer, Answer>(); });
 
             _mapper = mapperConfig.CreateMapper();
             _mapper.ConfigurationProvider.AssertConfigurationIsValid();
         }
 
-        public Answer Convert(DAO.Answer answer)
+        public Answer Convert(Models.DAO.Answer answer)
         {
             return _mapper.Map<Answer>(answer);
         }

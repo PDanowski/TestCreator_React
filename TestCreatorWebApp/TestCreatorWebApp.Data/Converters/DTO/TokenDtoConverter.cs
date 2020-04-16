@@ -1,23 +1,22 @@
 ﻿using AutoMapper;
-using TestCreatorWebApp.Data.Converters.Interfaces;
-using DAO = TestCreatorWebApp.Data.Models.DAO;
+using TestCreatorWebApp.Data.Converters.DTO.Interfaces;
 using Token = TestCreatorWebApp.Data.Models.DTO.Token;
 
-namespace TestCreatorWebApp.Data.Converters
+namespace TestCreatorWebApp.Data.Converters.DTO
 {
-    class TokenDtoConverter : ITokenDtoConverter
+    public class TokenDtoConverter : ITokenDtoConverter
     {
         private readonly IMapper _mapper;
 
         public TokenDtoConverter()
         {
-            var mapperConfig = new MapperConfiguration(cfg => { cfg.CreateMap<DAO.Token, Token>(); });
+            var mapperConfig = new MapperConfiguration(cfg => { cfg.CreateMap<Models.DAO.Token, Token>(); });
 
             _mapper = mapperConfig.CreateMapper();
             _mapper.ConfigurationProvider.AssertConfigurationIsValid();
         }
 
-        public Token Convert(DAO.Token token)
+        public Token Convert(Models.DAO.Token token)
         {
             return _mapper.Map<Token>(token);
         }

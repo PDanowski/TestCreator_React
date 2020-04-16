@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using TestCreatorWebApp.Data.Converters.Interfaces;
+using TestCreatorWebApp.Data.Converters.DTO.Interfaces;
 using TestCreatorWebApp.Data.Database;
 using TestCreatorWebApp.Data.Queries.Handlers.Common;
 using TestCreatorWebApp.Data.Queries.Results;

@@ -1,23 +1,22 @@
 ﻿using AutoMapper;
-using TestCreatorWebApp.Data.Converters.Interfaces;
+using TestCreatorWebApp.Data.Converters.DTO.Interfaces;
 using ApplicationUser = TestCreatorWebApp.Data.Models.DTO.ApplicationUser;
-using DAO = TestCreatorWebApp.Data.Models.DAO;
 
-namespace TestCreatorWebApp.Data.Converters
+namespace TestCreatorWebApp.Data.Converters.DTO
 {
-    class ApplicationUserDtoConverter : IApplicationUserDtoConverter
+    public class ApplicationUserDtoConverter : IApplicationUserDtoConverter
     {
         private readonly IMapper _mapper;
 
         public ApplicationUserDtoConverter()
         {
-            var mapperConfig = new MapperConfiguration(cfg => { cfg.CreateMap<DAO.ApplicationUser, ApplicationUser>(); });
+            var mapperConfig = new MapperConfiguration(cfg => { cfg.CreateMap<Models.DAO.ApplicationUser, ApplicationUser>(); });
 
             _mapper = mapperConfig.CreateMapper();
             _mapper.ConfigurationProvider.AssertConfigurationIsValid();
         }
 
-        public ApplicationUser Convert(DAO.ApplicationUser applicationUser)
+        public ApplicationUser Convert(Models.DAO.ApplicationUser applicationUser)
         {
             return _mapper.Map<ApplicationUser>(applicationUser);
         }
