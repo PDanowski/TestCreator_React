@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
+using TestCreatorWebApp.Data.Converters.DAO;
+using TestCreatorWebApp.Data.Converters.DAO.Interfaces;
 using TestCreatorWebApp.Data.Converters.DTO;
 using TestCreatorWebApp.Data.Converters.DTO.Interfaces;
 
@@ -28,6 +30,13 @@ namespace TestCreatorWebApp.Bootstrappers
             builder.RegisterType<TokenDtoConverter>().As<ITokenDtoConverter>();
             builder.RegisterType<ResultDtoConverter>().As<IResultDtoConverter>();
             builder.RegisterType<ApplicationUserDtoConverter>().As<IApplicationUserDtoConverter>();
+
+            builder.RegisterType<TestConverter>().As<ITestConverter>();
+            builder.RegisterType<AnswerConverter>().As<IAnswerConverter>();
+            builder.RegisterType<QuestionConverter>().As<IQuestionConverter>();
+            builder.RegisterType<TokenConverter>().As<ITokenConverter>();
+            builder.RegisterType<ResultConverter>().As<IResultConverter>();
+            builder.RegisterType<ApplicationUserConverter>().As<IApplicationUserConverter>();
         }
 
     }
