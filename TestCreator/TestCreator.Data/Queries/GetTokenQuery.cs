@@ -2,7 +2,7 @@
 
 namespace TestCreator.Data.Queries
 {
-    public class GetRefreshTokenQuery : IQuery
+    public class GetTokenQuery : IQuery
     {
         public string ClientId { get; set; }
         public string RefreshToken { get; set; }
