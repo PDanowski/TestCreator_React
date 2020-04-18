@@ -42,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TestCreatorWebApp.Data\TestCreatorWebApp.Data.csproj" />
+    <ProjectReference Include="..\TestCreatorWebApp.Data\TestCreator.Data.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
