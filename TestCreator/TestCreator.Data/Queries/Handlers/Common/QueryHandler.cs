@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using TestCreator.Data.Database;
+using TestCreator.Data.Exceptions;
 using TestCreator.Data.Queries.Handlers.Common.Interfaces;
 using TestCreator.Data.Queries.Interfaces;
 
@@ -18,12 +20,27 @@ namespace TestCreator.Data.Queries.Handlers.Common
 
         public TResult Retrieve(TParameter query)
         {
-            return Handle(query);
+            try
+            {
+                return Handle(query);
+            }
+            catch (Exception ex)
+            {
+                throw new DataLayerException(ex.Message, ex.InnerException);
+            }
+            
         }
 
         public async Task<TResult> RetrieveAsync(TParameter query)
         {
-            return await HandleAsync(query); 
+            try
+            {
+                return await HandleAsync(query);
+            }
+            catch (Exception ex)
+            {
+                throw new DataLayerException(ex.Message, ex.InnerException);
+            }
         }
 
         protected abstract TResult Handle(TParameter request);

@@ -10,7 +10,7 @@ namespace TestCreator.Data.Queries.Handlers
 {
     public class GetAnswerQueryHandler : QueryHandler<GetAnswerQuery, GetAnswerQueryResult>
     {
-        private IAnswerDtoConverter _dtoConverter;
+        private readonly IAnswerDtoConverter _dtoConverter;
 
         public GetAnswerQueryHandler(EfDbContext context, IAnswerDtoConverter dtoConverter) : base(context)
         {
