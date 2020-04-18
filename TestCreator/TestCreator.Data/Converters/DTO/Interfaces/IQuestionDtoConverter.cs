@@ -1,6 +1,6 @@
-﻿using Question = TestCreatorWebApp.Data.Models.DTO.Question;
+﻿using Question = TestCreator.Data.Models.DTO.Question;
 
-namespace TestCreatorWebApp.Data.Converters.DTO.Interfaces
+namespace TestCreator.Data.Converters.DTO.Interfaces
 {
     public interface IQuestionDtoConverter
     {

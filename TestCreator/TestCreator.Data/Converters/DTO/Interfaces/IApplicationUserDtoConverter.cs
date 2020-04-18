@@ -1,6 +1,6 @@
-﻿using ApplicationUser = TestCreatorWebApp.Data.Models.DTO.ApplicationUser;
+﻿using ApplicationUser = TestCreator.Data.Models.DTO.ApplicationUser;
 
-namespace TestCreatorWebApp.Data.Converters.DTO.Interfaces
+namespace TestCreator.Data.Converters.DTO.Interfaces
 {
     public interface IApplicationUserDtoConverter
     {

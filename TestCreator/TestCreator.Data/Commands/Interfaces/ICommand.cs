@@ -1,4 +1,4 @@
-﻿namespace TestCreatorWebApp.Data.Commands.Interfaces
+﻿namespace TestCreator.Data.Commands.Interfaces
 {
     public interface ICommand
     {

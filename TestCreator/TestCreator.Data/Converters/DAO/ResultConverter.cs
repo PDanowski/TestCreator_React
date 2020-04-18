@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
-using TestCreatorWebApp.Data.Converters.DAO.Interfaces;
-using TestCreatorWebApp.Data.Models.DAO;
+﻿using AutoMapper;
+using TestCreator.Data.Converters.DAO.Interfaces;
+using TestCreator.Data.Models.DAO;
 
-namespace TestCreatorWebApp.Data.Converters.DAO
+namespace TestCreator.Data.Converters.DAO
 {
     public class ResultConverter : IResultConverter
     {

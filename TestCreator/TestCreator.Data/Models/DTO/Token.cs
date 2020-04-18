@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestCreatorWebApp.Data.Models.DTO
+namespace TestCreator.Data.Models.DTO
 {
     public class Token
     {
@@ -11,6 +11,5 @@ namespace TestCreatorWebApp.Data.Models.DTO
         public string Value { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime LastModificationDate { get; set; }
-        public virtual ApplicationUser User { get; set; }
     }
 }

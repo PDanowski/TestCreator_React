@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace TestCreatorWebApp.ViewModels
+namespace TestCreator.WebApp.ViewModels
 {
     [JsonObject(MemberSerialization.OptOut)]
     public class TokenResponseViewModel

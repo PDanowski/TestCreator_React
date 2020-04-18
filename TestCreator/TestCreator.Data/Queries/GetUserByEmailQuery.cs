@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using TestCreator.Data.Queries.Interfaces;
 
-namespace TestCreatorWebApp.Data.Queries
+namespace TestCreator.Data.Queries
 {
-    public class GetUserByEmailQuery
+    public class GetUserByEmailQuery : IQuery
     {
         public string Email { get; set; }
     }

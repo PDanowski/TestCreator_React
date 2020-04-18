@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using TestCreator.Data.Queries.Interfaces;
 
-namespace TestCreatorWebApp.Data.Queries
+namespace TestCreator.Data.Queries
 {
-    public class GetRefreshTokenQuery
+    public class GetRefreshTokenQuery : IQuery
     {
         public string ClientId { get; set; }
         public string RefreshToken { get; set; }

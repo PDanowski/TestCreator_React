@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TestCreatorWebApp.Data.Models.DAO;
+﻿using TestCreator.Data.Models.DAO;
 
-namespace TestCreatorWebApp.Data.Converters.DAO.Interfaces
+namespace TestCreator.Data.Converters.DAO.Interfaces
 {
     public interface ITokenConverter
     {

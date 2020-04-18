@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using TestCreator.Data.Queries.Interfaces;
 
-namespace TestCreatorWebApp.Data.Queries
+namespace TestCreator.Data.Queries
 {
-    public class GetLatestTestsQuery
+    public class GetLatestTestsQuery : IQuery
     {
         public int Number { get; set; }
     }

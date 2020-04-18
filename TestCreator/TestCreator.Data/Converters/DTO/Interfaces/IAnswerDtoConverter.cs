@@ -1,6 +1,6 @@
-﻿using Answer = TestCreatorWebApp.Data.Models.DTO.Answer;
+﻿using Answer = TestCreator.Data.Models.DTO.Answer;
 
-namespace TestCreatorWebApp.Data.Converters.DTO.Interfaces
+namespace TestCreator.Data.Converters.DTO.Interfaces
 {
     public interface IAnswerDtoConverter
     {

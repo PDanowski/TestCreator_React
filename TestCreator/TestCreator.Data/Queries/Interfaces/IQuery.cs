@@ -1,4 +1,4 @@
-﻿namespace TestCreatorWebApp.Data.Queries.Interfaces
+﻿namespace TestCreator.Data.Queries.Interfaces
 {
     public interface IQuery
     {

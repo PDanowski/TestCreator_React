@@ -3,10 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using TestCreatorWebApp.Data.Consts;
-using TestCreatorWebApp.Data.Models.DAO;
+using TestCreator.Data.Consts;
+using TestCreator.Data.Models.DAO;
 
-namespace TestCreatorWebApp.Data.Database
+namespace TestCreator.Data.Database
 {
     public static class DbSeeder
     {

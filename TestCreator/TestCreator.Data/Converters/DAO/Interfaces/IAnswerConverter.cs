@@ -1,6 +1,6 @@
-﻿using TestCreatorWebApp.Data.Models.DTO;
+﻿using TestCreator.Data.Models.DTO;
 
-namespace TestCreatorWebApp.Data.Converters.DAO.Interfaces
+namespace TestCreator.Data.Converters.DAO.Interfaces
 {
     public interface IAnswerConverter
     {

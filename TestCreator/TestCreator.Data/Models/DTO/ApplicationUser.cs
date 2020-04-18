@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
-namespace TestCreatorWebApp.Data.Models.DTO
+namespace TestCreator.Data.Models.DTO
 {
     public class ApplicationUser : IdentityUser
     {
@@ -12,7 +12,5 @@ namespace TestCreatorWebApp.Data.Models.DTO
         public int Flags { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime LastModificationDate { get; set; }
-        public virtual List<Test> Tests { get; set; }
-        public virtual List<Token> Tokens { get; set; }
     }
 }

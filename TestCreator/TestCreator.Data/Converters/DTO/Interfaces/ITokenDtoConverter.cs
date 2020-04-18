@@ -1,6 +1,6 @@
-﻿using Token = TestCreatorWebApp.Data.Models.DTO.Token;
+﻿using Token = TestCreator.Data.Models.DTO.Token;
 
-namespace TestCreatorWebApp.Data.Converters.DTO.Interfaces
+namespace TestCreator.Data.Converters.DTO.Interfaces
 {
     public interface ITokenDtoConverter
     {

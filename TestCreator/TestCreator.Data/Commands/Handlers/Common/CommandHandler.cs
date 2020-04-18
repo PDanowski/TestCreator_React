@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using TestCreatorWebApp.Data.Commands.Handlers.Common.Interfaces;
-using TestCreatorWebApp.Data.Commands.Interfaces;
-using TestCreatorWebApp.Data.Database;
+using TestCreator.Data.Commands.Handlers.Common.Interfaces;
+using TestCreator.Data.Commands.Interfaces;
+using TestCreator.Data.Database;
 
-namespace TestCreatorWebApp.Data.Commands.Handlers
+namespace TestCreator.Data.Commands.Handlers.Common
 {
     public abstract class CommandHandler<TRequest> : ICommandHandler<TRequest>
             where TRequest : ICommand

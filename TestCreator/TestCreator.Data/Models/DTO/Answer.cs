@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestCreatorWebApp.Data.Models.DTO
+namespace TestCreator.Data.Models.DTO
 {
     public class Answer
     {
@@ -13,6 +13,5 @@ namespace TestCreatorWebApp.Data.Models.DTO
         public string Notes { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime LastModificationDate { get; set; }
-        public virtual Question Question { get; set; }
     }
 }

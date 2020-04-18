@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using TestCreatorWebApp.Data.Models.DAO;
+using TestCreator.Data.Models.DAO;
 
-namespace TestCreatorWebApp.Data.Database
+namespace TestCreator.Data.Database
 {
     public class EfDbContext : IdentityDbContext<ApplicationUser>
     {

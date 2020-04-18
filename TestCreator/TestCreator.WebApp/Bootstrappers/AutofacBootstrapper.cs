@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Autofac;
-using TestCreatorWebApp.Data.Converters.DAO;
-using TestCreatorWebApp.Data.Converters.DAO.Interfaces;
-using TestCreatorWebApp.Data.Converters.DTO;
-using TestCreatorWebApp.Data.Converters.DTO.Interfaces;
+﻿using Autofac;
+using TestCreator.Data.Converters.DAO;
+using TestCreator.Data.Converters.DAO.Interfaces;
+using TestCreator.Data.Converters.DTO;
+using TestCreator.Data.Converters.DTO.Interfaces;
 
-namespace TestCreatorWebApp.Bootstrappers
+namespace TestCreator.WebApp.Bootstrappers
 {
     public static class AutofacBootstrapper
     {

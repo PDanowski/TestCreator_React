@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TestCreatorWebApp.Data.Models.DTO
+namespace TestCreator.Data.Models.DTO
 {
     public class Test
     {
@@ -17,10 +17,5 @@ namespace TestCreatorWebApp.Data.Models.DTO
         public DateTime CreationDate { get; set; }
         public DateTime LastModificationDate { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
-
-        public virtual List<Question> Questions { get; set; }
-
-        public virtual List<Result> Results { get; set; }
     }
 }

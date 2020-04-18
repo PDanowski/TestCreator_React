@@ -1,6 +1,6 @@
-﻿using Result = TestCreatorWebApp.Data.Models.DTO.Result;
+﻿using Result = TestCreator.Data.Models.DTO.Result;
 
-namespace TestCreatorWebApp.Data.Converters.DTO.Interfaces
+namespace TestCreator.Data.Converters.DTO.Interfaces
 {
     public interface IResultDtoConverter
     {

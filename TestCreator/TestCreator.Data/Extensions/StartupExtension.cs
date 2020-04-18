@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using TestCreatorWebApp.Data.Database;
-using TestCreatorWebApp.Data.Models.DAO;
+using TestCreator.Data.Database;
+using TestCreator.Data.Models.DAO;
 
-namespace TestCreatorWebApp.Data.Extensions
+namespace TestCreator.Data.Extensions
 {
     public static class StartupExtension
     {

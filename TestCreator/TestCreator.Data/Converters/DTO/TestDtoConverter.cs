@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using TestCreatorWebApp.Data.Converters.DTO.Interfaces;
-using Test = TestCreatorWebApp.Data.Models.DTO.Test;
+using TestCreator.Data.Converters.DTO.Interfaces;
+using Test = TestCreator.Data.Models.DTO.Test;
 
-namespace TestCreatorWebApp.Data.Converters.DTO
+namespace TestCreator.Data.Converters.DTO
 {
     public class TestDtoConverter : ITestDtoConverter
     {

@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using TestCreatorWebApp.Data.Converters.DTO.Interfaces;
-using TestCreatorWebApp.Data.Database;
-using TestCreatorWebApp.Data.Queries.Handlers.Common;
-using TestCreatorWebApp.Data.Queries.Results;
+using TestCreator.Data.Converters.DTO.Interfaces;
+using TestCreator.Data.Database;
+using TestCreator.Data.Queries.Handlers.Common;
+using TestCreator.Data.Queries.Results;
 
-namespace TestCreatorWebApp.Data.Queries.Handlers
+namespace TestCreator.Data.Queries.Handlers
 {
     public class GetAnswerQueryHandler : QueryHandler<GetAnswerQuery, GetAnswerQueryResult>
     {

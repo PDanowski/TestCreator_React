@@ -1,4 +1,4 @@
-﻿namespace TestCreatorWebApp.Data.Consts
+﻿namespace TestCreator.Data.Consts
 {
     public class UserRoles
     {

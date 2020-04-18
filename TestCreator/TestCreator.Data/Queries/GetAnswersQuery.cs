@@ -1,6 +1,6 @@
-﻿using TestCreatorWebApp.Data.Queries.Interfaces;
+﻿using TestCreator.Data.Queries.Interfaces;
 
-namespace TestCreatorWebApp.Data.Queries
+namespace TestCreator.Data.Queries
 {
     public class GetAnswersQuery : IQuery
     {

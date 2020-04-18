@@ -4,9 +4,9 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using TestCreatorWebApp.Data.Database;
+using TestCreator.Data.Database;
 
-namespace TestCreatorWebApp.Data.Migrations
+namespace TestCreator.Data.Migrations
 {
     [DbContext(typeof(EfDbContext))]
     partial class DbContextModelSnapshot : ModelSnapshot

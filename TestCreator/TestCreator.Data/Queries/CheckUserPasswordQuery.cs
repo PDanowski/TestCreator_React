@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TestCreatorWebApp.Data.Models.DTO;
+﻿using TestCreator.Data.Models.DTO;
+using TestCreator.Data.Queries.Interfaces;
 
-namespace TestCreatorWebApp.Data.Queries
+namespace TestCreator.Data.Queries
 {
-    public class CheckUserPasswordQuery
+    public class CheckUserPasswordQuery : IQuery
     {
         public ApplicationUser User { get; set; }
         public string Password { get; set; }

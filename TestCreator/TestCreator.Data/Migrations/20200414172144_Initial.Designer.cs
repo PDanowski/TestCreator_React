@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using TestCreatorWebApp.Data.Database;
+using TestCreator.Data.Database;
 
-namespace TestCreatorWebApp.Data.Migrations
+namespace TestCreator.Data.Migrations
 {
     [DbContext(typeof(EfDbContext))]
     [Migration("20200414172144_Initial")]

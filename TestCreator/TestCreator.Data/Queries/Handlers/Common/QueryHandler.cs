@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using TestCreatorWebApp.Data.Database;
-using TestCreatorWebApp.Data.Queries.Handlers.Common.Interfaces;
-using TestCreatorWebApp.Data.Queries.Interfaces;
+using TestCreator.Data.Database;
+using TestCreator.Data.Queries.Handlers.Common.Interfaces;
+using TestCreator.Data.Queries.Interfaces;
 
-namespace TestCreatorWebApp.Data.Queries.Handlers.Common
+namespace TestCreator.Data.Queries.Handlers.Common
 {
     public abstract class QueryHandler<TParameter, TResult> : IQueryHandler<TParameter, TResult>
         where TResult : IQueryResult, new()

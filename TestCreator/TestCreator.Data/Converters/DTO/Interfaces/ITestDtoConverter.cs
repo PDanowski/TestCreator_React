@@ -1,6 +1,6 @@
-﻿using Test = TestCreatorWebApp.Data.Models.DTO.Test;
+﻿using Test = TestCreator.Data.Models.DTO.Test;
 
-namespace TestCreatorWebApp.Data.Converters.DTO.Interfaces
+namespace TestCreator.Data.Converters.DTO.Interfaces
 {
     public interface ITestDtoConverter
     {

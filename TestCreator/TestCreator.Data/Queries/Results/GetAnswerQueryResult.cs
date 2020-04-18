@@ -1,7 +1,7 @@
-﻿using TestCreatorWebApp.Data.Models.DTO;
-using TestCreatorWebApp.Data.Queries.Interfaces;
+﻿using TestCreator.Data.Models.DTO;
+using TestCreator.Data.Queries.Interfaces;
 
-namespace TestCreatorWebApp.Data.Queries.Results
+namespace TestCreator.Data.Queries.Results
 {
     public class GetAnswerQueryResult : IQueryResult
     {
