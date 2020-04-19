@@ -82,9 +82,7 @@ namespace TestCreator.WebApp
 
             var builder = new ContainerBuilder();
 
-            builder.RegisterInfrastructure();
-            builder.RegisterConverters();
-            builder.RegisterDataConverters();
+            builder.RegisterModules();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

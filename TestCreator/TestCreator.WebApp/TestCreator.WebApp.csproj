@@ -31,10 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Converters\DTO\" />
     <Folder Include="Converters\ViewModel\" />
-    <Folder Include="Data\Commands\" />
     <Folder Include="Data\Queries\" />
     <Folder Include="Helpers\" />
     <Folder Include="Services\Interfaces\" />
