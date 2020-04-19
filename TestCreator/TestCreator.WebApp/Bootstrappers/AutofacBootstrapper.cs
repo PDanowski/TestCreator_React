@@ -10,6 +10,8 @@ using TestCreator.Data.Commands.Handlers.Common.Interfaces;
 using TestCreator.WebApp.Data.Commands;
 using TestCreator.WebApp.Data.Commands.Interfaces;
 using TestCreator.Data.Database;
+using TestCreator.WebApp.Services;
+using TestCreator.WebApp.Services.Interfaces;
 
 namespace TestCreator.WebApp.Bootstrappers
 {
@@ -25,7 +27,8 @@ namespace TestCreator.WebApp.Bootstrappers
         {
             protected override void Load(ContainerBuilder builder)
             {
-                
+                builder.RegisterType<TestResultCalculationService>().As<ITestResultCalculationService>();
+                builder.RegisterType<TokenService>().As<ITokenService>();
             }
         }
 
