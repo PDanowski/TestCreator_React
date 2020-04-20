@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TestCreator.WebApp</name>
+    </assembly>
+    <members>
+        <member name="M:TestCreator.WebApp.Controllers.TestController.Get(System.Int32)">
+            <summary>
+            GET: api/test/{id}
+            </summary>
+            <param name="id"></param>
+            <returns>Single TestViewModel with given {id}</returns>
+        </member>
+    </members>
+</doc>

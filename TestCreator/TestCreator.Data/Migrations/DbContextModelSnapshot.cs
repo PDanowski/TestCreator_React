@@ -150,7 +150,7 @@ namespace TestCreator.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("TestCreatorWebApp.Data.Models.DAO.Answer", b =>
+            modelBuilder.Entity("TestCreator.Data.Models.DAO.Answer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -189,7 +189,7 @@ namespace TestCreator.Data.Migrations
                     b.ToTable("Answers");
                 });
 
-            modelBuilder.Entity("TestCreatorWebApp.Data.Models.DAO.ApplicationUser", b =>
+            modelBuilder.Entity("TestCreator.Data.Models.DAO.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -272,7 +272,7 @@ namespace TestCreator.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("TestCreatorWebApp.Data.Models.DAO.Question", b =>
+            modelBuilder.Entity("TestCreator.Data.Models.DAO.Question", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -308,7 +308,7 @@ namespace TestCreator.Data.Migrations
                     b.ToTable("Questions");
                 });
 
-            modelBuilder.Entity("TestCreatorWebApp.Data.Models.DAO.Result", b =>
+            modelBuilder.Entity("TestCreator.Data.Models.DAO.Result", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -350,7 +350,7 @@ namespace TestCreator.Data.Migrations
                     b.ToTable("Results");
                 });
 
-            modelBuilder.Entity("TestCreatorWebApp.Data.Models.DAO.Test", b =>
+            modelBuilder.Entity("TestCreator.Data.Models.DAO.Test", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -396,7 +396,7 @@ namespace TestCreator.Data.Migrations
                     b.ToTable("Tests");
                 });
 
-            modelBuilder.Entity("TestCreatorWebApp.Data.Models.DAO.Token", b =>
+            modelBuilder.Entity("TestCreator.Data.Models.DAO.Token", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -442,7 +442,7 @@ namespace TestCreator.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("TestCreatorWebApp.Data.Models.DAO.ApplicationUser", null)
+                    b.HasOne("TestCreator.Data.Models.DAO.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -451,7 +451,7 @@ namespace TestCreator.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("TestCreatorWebApp.Data.Models.DAO.ApplicationUser", null)
+                    b.HasOne("TestCreator.Data.Models.DAO.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -466,7 +466,7 @@ namespace TestCreator.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TestCreatorWebApp.Data.Models.DAO.ApplicationUser", null)
+                    b.HasOne("TestCreator.Data.Models.DAO.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -475,52 +475,52 @@ namespace TestCreator.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("TestCreatorWebApp.Data.Models.DAO.ApplicationUser", null)
+                    b.HasOne("TestCreator.Data.Models.DAO.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TestCreatorWebApp.Data.Models.DAO.Answer", b =>
+            modelBuilder.Entity("TestCreator.Data.Models.DAO.Answer", b =>
                 {
-                    b.HasOne("TestCreatorWebApp.Data.Models.DAO.Question", "Question")
+                    b.HasOne("TestCreator.Data.Models.DAO.Question", "Question")
                         .WithMany("Answers")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TestCreatorWebApp.Data.Models.DAO.Question", b =>
+            modelBuilder.Entity("TestCreator.Data.Models.DAO.Question", b =>
                 {
-                    b.HasOne("TestCreatorWebApp.Data.Models.DAO.Test", "Test")
+                    b.HasOne("TestCreator.Data.Models.DAO.Test", "Test")
                         .WithMany("Questions")
                         .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TestCreatorWebApp.Data.Models.DAO.Result", b =>
+            modelBuilder.Entity("TestCreator.Data.Models.DAO.Result", b =>
                 {
-                    b.HasOne("TestCreatorWebApp.Data.Models.DAO.Test", "Test")
+                    b.HasOne("TestCreator.Data.Models.DAO.Test", "Test")
                         .WithMany("Results")
                         .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TestCreatorWebApp.Data.Models.DAO.Test", b =>
+            modelBuilder.Entity("TestCreator.Data.Models.DAO.Test", b =>
                 {
-                    b.HasOne("TestCreatorWebApp.Data.Models.DAO.ApplicationUser", "User")
+                    b.HasOne("TestCreator.Data.Models.DAO.ApplicationUser", "User")
                         .WithMany("Tests")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TestCreatorWebApp.Data.Models.DAO.Token", b =>
+            modelBuilder.Entity("TestCreator.Data.Models.DAO.Token", b =>
                 {
-                    b.HasOne("TestCreatorWebApp.Data.Models.DAO.ApplicationUser", "User")
+                    b.HasOne("TestCreator.Data.Models.DAO.ApplicationUser", "User")
                         .WithMany("Tokens")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

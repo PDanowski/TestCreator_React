@@ -42,7 +42,7 @@ namespace TestCreator.Tests.Controllers
             mockRepo.Setup(x => x.DispatchAsync<GetTestQuery, GetTestQueryResult>(It.IsAny<GetTestQuery>()))
                 .Returns(Task.FromResult(queryResult));
 
-            var controller = new TestController(mockRepo.Object);
+            var controller = new TestController(mockRepo.Object, null);
 
             var result = await controller.Get(1) as JsonResult;
 

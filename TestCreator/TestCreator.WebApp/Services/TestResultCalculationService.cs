@@ -13,7 +13,7 @@ namespace TestCreator.WebApp.Services
         {
             if (viewModel == null)
             {
-                throw new ArgumentException("ViewModel van't be NULL");
+                throw new ArgumentException("ViewModel can't be NULL");
             }
 
             var maxScore = viewModel.TestAttemptEntries.Sum(e => e.Answers.Where(a => a.Value >= 0).Sum(a => a.Value));

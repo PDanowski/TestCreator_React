@@ -36,7 +36,7 @@ namespace TestCreator.WebApp.Bootstrappers
         {
             protected override void Load(ContainerBuilder builder)
             {
-                var assembly = typeof(DataModule).Assembly;
+                var assembly = typeof(IQueryHandler<,>).Assembly;
 
                 builder.RegisterType<TestDtoConverter>().As<ITestDtoConverter>();
                 builder.RegisterType<AnswerDtoConverter>().As<IAnswerDtoConverter>();

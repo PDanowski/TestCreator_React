@@ -1,6 +1,8 @@
 using System;
+using System.IO;
 using System.Text;
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,7 +12,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using TestCreator.Data.Database;
 using TestCreator.Data.Models.DAO;
 using TestCreator.WebApp.Bootstrappers;
@@ -30,6 +34,17 @@ namespace TestCreator.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "TestCreator API v1",
+                    Description = "ASP.NET Core 3.1 API",
+                });
+                //c.IncludeXmlComments(Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "TestCreator.WebApp.xml"));
+            });
 
             services.AddEntityFrameworkSqlServer();
 
@@ -51,16 +66,14 @@ namespace TestCreator.WebApp
                 options.Password.RequireUppercase = true;
                 options.Password.RequireNonAlphanumeric = true;
                 options.Password.RequiredLength = 8;
-            })
-            .AddEntityFrameworkStores<EfDbContext>();
+            }).AddEntityFrameworkStores<EfDbContext>();
 
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-                .AddJwtBearer(config =>
+            }).AddJwtBearer(config =>
                 {
                     config.RequireHttpsMetadata = false;
                     config.SaveToken = true;
@@ -80,9 +93,17 @@ namespace TestCreator.WebApp
                     };
                 });
 
-            var builder = new ContainerBuilder();
+        }
 
-            builder.RegisterModules();
+        // ConfigureContainer is where you can register things directly
+        // with Autofac. This runs after ConfigureServices so the things
+        // here will override registrations made in ConfigureServices.
+        // Don't build the container; that gets done for you by the factory.
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            // Register your own things directly with Autofac, like:
+            builder.RegisterModule(new AutofacBootstrapper.ApplicationModule());
+            builder.RegisterModule(new AutofacBootstrapper.DataModule());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -98,6 +119,12 @@ namespace TestCreator.WebApp
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+            });
 
             app.UseHttpsRedirection();
             //disable cache for static files
@@ -130,6 +157,7 @@ namespace TestCreator.WebApp
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
 
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
