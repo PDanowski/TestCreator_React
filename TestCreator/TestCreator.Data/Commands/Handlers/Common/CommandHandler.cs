@@ -25,7 +25,6 @@ namespace TestCreator.Data.Commands.Handlers.Common
             await DoHandleAsync(command);
         }
 
-        // Protected methods
         protected abstract void DoHandle(TRequest request);
 
         protected abstract Task DoHandleAsync(TRequest request);

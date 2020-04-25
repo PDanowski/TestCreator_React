@@ -56,7 +56,7 @@ namespace TestCreator.WebApp.Bootstrappers
                 //builder.RegisterType<CommandDispatcher>().As<ICommandDispatcher>();
 
                 builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
-                //builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandler<,>));
+                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandler<>));
             }
         }
 

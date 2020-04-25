@@ -10,5 +10,10 @@ namespace TestCreator.Data.Exceptions
         {
             
         }
+
+        public DataLayerException(string message) : base(message)
+        {
+
+        }
     }
 }

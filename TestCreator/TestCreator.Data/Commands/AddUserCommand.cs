@@ -6,7 +6,7 @@ using TestCreator.Data.Models.DTO;
 
 namespace TestCreator.Data.Commands
 {
-    public class CreateUserCommand : ICommand
+    public class AddUserCommand : ICommand
     {
         public ApplicationUser User { get; set; }
         public string[] Roles { get; set; }
