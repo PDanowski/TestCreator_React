@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using TestCreator.Data.Queries;
 using TestCreator.Data.Queries.Results;
 using TestCreator.WebApp.Controllers.Base;
-using TestCreator.WebApp.Data.Commands.Interfaces;
+using TestCreator.WebApp.Data.Queries.Interfaces;
 using TestCreator.WebApp.Services.Interfaces;
 
 namespace TestCreator.WebApp.Controllers

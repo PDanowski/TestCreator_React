@@ -12,7 +12,7 @@ using TestCreator.Data.Queries;
 using TestCreator.Data.Queries.Results;
 using TestCreator.Tests.Helpers;
 using TestCreator.WebApp.Controllers;
-using TestCreator.WebApp.Data.Commands.Interfaces;
+using TestCreator.WebApp.Data.Queries.Interfaces;
 using TestCreator.WebApp.ViewModels;
 
 namespace TestCreator.Tests.Controllers

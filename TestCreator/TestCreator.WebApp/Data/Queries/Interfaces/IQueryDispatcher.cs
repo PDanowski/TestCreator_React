@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using TestCreator.Data.Queries.Interfaces;
 
-namespace TestCreator.WebApp.Data.Commands.Interfaces
+namespace TestCreator.WebApp.Data.Queries.Interfaces
 {
     public interface IQueryDispatcher
     {

@@ -7,9 +7,11 @@ using TestCreator.Data.Converters.DTO;
 using TestCreator.Data.Converters.DTO.Interfaces;
 using TestCreator.Data.Queries.Handlers.Common.Interfaces;
 using TestCreator.Data.Commands.Handlers.Common.Interfaces;
+using TestCreator.Data.Database;
 using TestCreator.WebApp.Data.Commands;
 using TestCreator.WebApp.Data.Commands.Interfaces;
-using TestCreator.Data.Database;
+using TestCreator.WebApp.Data.Queries;
+using TestCreator.WebApp.Data.Queries.Interfaces;
 using TestCreator.WebApp.Services;
 using TestCreator.WebApp.Services.Interfaces;
 
@@ -53,7 +55,7 @@ namespace TestCreator.WebApp.Bootstrappers
                 builder.RegisterType<ApplicationUserConverter>().As<IApplicationUserConverter>();
 
                 builder.RegisterType<QueryDispatcher>().As<IQueryDispatcher>();
-                //builder.RegisterType<CommandDispatcher>().As<ICommandDispatcher>();
+                builder.RegisterType<CommandDispatcher>().As<ICommandDispatcher>();
 
                 builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
                 builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandler<>));

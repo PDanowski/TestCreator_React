@@ -40,7 +40,6 @@
   <ItemGroup>
     <Folder Include="Converters\DTO\" />
     <Folder Include="Converters\ViewModel\" />
-    <Folder Include="Data\Queries\" />
     <Folder Include="Helpers\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>

@@ -15,9 +15,9 @@ namespace TestCreator.Data.Queries.Handlers
     {
         private readonly IQuestionDtoConverter _dtoConverter;
 
-        public GetQuestionsQueryHandler(EfDbContext dbContext) : base(dbContext)
+        public GetQuestionsQueryHandler(EfDbContext dbContext, IQuestionDtoConverter dtoConverter) : base(dbContext)
         {
-
+            _dtoConverter = dtoConverter;
         }
 
         protected override GetQuestionsQueryResult Handle(GetQuestionsQuery request)

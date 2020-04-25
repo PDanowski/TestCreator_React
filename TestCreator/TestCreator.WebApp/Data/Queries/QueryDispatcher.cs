@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using TestCreator.Data.Queries.Handlers.Common.Interfaces;
 using TestCreator.Data.Queries.Interfaces;
-using TestCreator.WebApp.Data.Commands.Interfaces;
+using TestCreator.WebApp.Data.Queries.Interfaces;
 
-namespace TestCreator.WebApp.Data.Commands
+namespace TestCreator.WebApp.Data.Queries
 {
     public class QueryDispatcher : IQueryDispatcher
     {
