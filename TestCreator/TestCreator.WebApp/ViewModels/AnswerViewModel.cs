@@ -7,14 +7,8 @@ namespace TestCreator.WebApp.ViewModels
     [JsonObject(MemberSerialization.OptOut)]
     public class AnswerViewModel
     {
-        public AnswerViewModel()
-        {
-                
-        }
-
         public int Id { get; set; }
         public int QuestionId { get; set; }
-        public int QuizId { get; set; }
         public string Text { get; set; }
         public string Notes { get; set; }
         [DefaultValue(0)]
@@ -25,6 +19,5 @@ namespace TestCreator.WebApp.ViewModels
         [JsonIgnore]
         public DateTime CreationDate { get; set; }
         public DateTime LastModificationDate { get; set; }
-
     }
 }

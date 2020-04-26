@@ -38,8 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Converters\DTO\" />
-    <Folder Include="Converters\ViewModel\" />
+    <Folder Include="Converters\DTO\Interfaces\" />
     <Folder Include="Helpers\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>

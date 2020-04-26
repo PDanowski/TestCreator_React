@@ -7,11 +7,6 @@ namespace TestCreator.WebApp.ViewModels
     [JsonObject(MemberSerialization.OptOut)]
     public class ResultViewModel
     {
-        public ResultViewModel()
-        {
-                
-        }
-
         public int Id { get; set; }
         public int TestId { get; set; }
         public string Text { get; set; }
