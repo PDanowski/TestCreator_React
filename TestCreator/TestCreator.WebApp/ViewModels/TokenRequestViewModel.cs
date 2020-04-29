@@ -5,11 +5,6 @@ namespace TestCreator.WebApp.ViewModels
     [JsonObject(MemberSerialization.OptOut)]
     public class TokenRequestViewModel
     {
-        public TokenRequestViewModel()
-        {
-                
-        }
-
         public string GrantType { get; set; }
         public string ClientId { get; set; }
         public string ClientSecret { get; set; }

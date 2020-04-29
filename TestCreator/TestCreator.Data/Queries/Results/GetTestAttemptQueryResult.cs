@@ -6,7 +6,7 @@ using TestCreator.Data.Queries.Interfaces;
 
 namespace TestCreator.Data.Queries.Results
 {
-    public class GetAllTestDataQueryResult : IQueryResult
+    public class GetTestAttemptQueryResult : IQueryResult
     {
         public Test Test { get; set; }
 

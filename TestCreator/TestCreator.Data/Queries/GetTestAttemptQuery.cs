@@ -2,7 +2,7 @@
 
 namespace TestCreator.Data.Queries
 {
-    public class GetAllTestDataQuery : IQuery
+    public class GetTestAttemptQuery : IQuery
     {
         public int Id { get; set; }
     }

@@ -17,9 +17,9 @@ namespace TestCreator.WebApp.Services
             }
 
             var maxScore = viewModel.TestAttemptEntries.Sum(e => e.Answers.Where(a => a.Value >= 0).Sum(a => a.Value));
-            var score = viewModel.TestAttemptEntries.Where(e => !e.IsMultitipleChoise)
+            var score = viewModel.TestAttemptEntries.Where(e => !e.IsMultipleChoice)
                             .Sum(e => e.Answers.Where(a => a.Checked).Sum(a => a.Value)) +
-                        viewModel.TestAttemptEntries.Where(e => e.IsMultitipleChoise && CheckIfAllAnswersCheckedAreCorrect(e.Answers))
+                        viewModel.TestAttemptEntries.Where(e => e.IsMultipleChoice && CheckIfAllAnswersCheckedAreCorrect(e.Answers))
                             .Sum(e => e.Answers.Where(a => a.Checked).Sum(a => a.Value));
 
             return new TestAttemptResultViewModel
