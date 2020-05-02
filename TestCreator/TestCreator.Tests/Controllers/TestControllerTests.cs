@@ -38,11 +38,11 @@ namespace TestCreator.Tests.Controllers
                 }
             };
             
-            var mockRepo = new Mock<IQueryDispatcher>();
-            mockRepo.Setup(x => x.DispatchAsync<GetTestQuery, GetTestQueryResult>(It.IsAny<GetTestQuery>()))
+            var mockQuery = new Mock<IQueryDispatcher>();
+            mockQuery.Setup(x => x.DispatchAsync<GetTestQuery, GetTestQueryResult>(It.IsAny<GetTestQuery>()))
                 .Returns(Task.FromResult(queryResult));
 
-            var controller = new TestController(mockRepo.Object, null);
+            var controller = new TestController(mockQuery.Object, null);
 
             var result = await controller.Get(1) as JsonResult;
 
@@ -64,117 +64,6 @@ namespace TestCreator.Tests.Controllers
         //    Assert.IsNotNull(result);
         //    Assert.IsInstanceOf<NotFoundObjectResult>(result);
         //}
-
-        //[Test]
-        //public void Start_CorrectIdGiven_ReturnsJsonViewModel()
-        //{
-        //    var viewModel = new TestAttemptViewModel()
-        //    {
-        //        TestId = 1,
-        //        Title = "title1",
-        //        TestAttemptEntries = new List<TestAttemptEntryViewModel>
-        //        {
-        //            new TestAttemptEntryViewModel()
-        //        }
-        //    };
-
-        //    var mockRepo = new Mock<ITestRepository>();
-        //    mockRepo.Setup(x => x.StartTest(It.IsAny<int>())).Returns(viewModel);
-
-        //    var controller = new TestController(mockRepo.Object, null);
-
-        //    var result = controller.Start(1) as JsonResult;
-
-        //    Assert.IsNotNull(result);
-        //    Assert.AreEqual(result.GetValueFromJsonResult<string>("Title"), viewModel.Title);
-        //    Assert.AreEqual(result.GetValueFromJsonResult<int>("TestId"), viewModel.TestId);
-        //    Assert.IsNotNull(result.GetValueFromJsonResult<List<TestAttemptEntryViewModel>>("TestAttemptEntries"));
-        //}
-
-        //[Test]
-        //public void Start_InvalidIdGiven_ReturnsNotFound()
-        //{
-        //    var mockRepo = new Mock<ITestRepository>();
-        //    mockRepo.Setup(x => x.StartTest(It.IsAny<int>())).Returns<Test>(null);
-
-        //    var controller = new TestController(mockRepo.Object, null);
-
-        //    var result = controller.Get(1);
-
-        //    Assert.IsNotNull(result);
-        //    Assert.IsInstanceOf<NotFoundObjectResult>(result);
-        //}
-
-        //[Test]
-        //public void Result_CorrectTestAttemptViewModel_ReturnsJsonViewModel()
-        //{
-        //    var viewModel = new TestAttemptViewModel()
-        //    {
-        //        TestId = 1,
-        //        Title = "title1",
-        //        TestAttemptEntries = new List<TestAttemptEntryViewModel>
-        //        {
-        //            new TestAttemptEntryViewModel()
-        //        }
-        //    };
-
-        //    var returnedViewModel = new TestAttemptResultViewModel()
-        //    {
-        //        TestId = 1,
-        //        Title = "title1",
-        //        Score = 10,
-        //        MaximalPossibleScore = 15
-        //    };
-
-        //    var mockRepo = new Mock<ITestService>();
-        //    mockRepo.Setup(x => x.CalculateResult(It.IsAny<TestAttemptViewModel>())).Returns(returnedViewModel);
-
-        //    var controller = new TestController(null, mockRepo.Object);
-
-        //    var result = controller.Result(viewModel) as JsonResult;
-
-        //    Assert.IsNotNull(result);
-        //    Assert.AreEqual(result.GetValueFromJsonResult<string>("Title"), returnedViewModel.Title);
-        //    Assert.AreEqual(result.GetValueFromJsonResult<int>("TestId"), returnedViewModel.TestId);
-        //    Assert.AreEqual(result.GetValueFromJsonResult<int>("Score"), returnedViewModel.Score);
-        //    Assert.AreEqual(result.GetValueFromJsonResult<int>("MaximalPossibleScore"), returnedViewModel.MaximalPossibleScore);
-        //}
-
-        //[Test]
-        //public void Result_NullTestAttemptViewModel_ReturnsNotFound()
-        //{
-        //    var controller = new TestController(null, null);
-
-        //    var result = controller.Result(null);
-
-        //    Assert.IsNotNull(result);
-        //    Assert.IsInstanceOf<NotFoundObjectResult>(result);
-        //}
-
-        //[Test]
-        //public void Result_CorrectTestAttemptViewModelErrorDuringCalculating_ReturnsNotFound()
-        //{
-        //    var viewModel = new TestAttemptViewModel()
-        //    {
-        //        TestId = 1,
-        //        Title = "title1",
-        //        TestAttemptEntries = new List<TestAttemptEntryViewModel>
-        //        {
-        //            new TestAttemptEntryViewModel()
-        //        }
-        //    };
-
-        //    var mockRepo = new Mock<ITestService>();
-        //    mockRepo.Setup(x => x.CalculateResult(It.IsAny<TestAttemptViewModel>())).Returns<TestAttemptResultViewModel>(null);
-
-        //    var controller = new TestController(null, mockRepo.Object);
-
-        //    var result = controller.Result(viewModel) as StatusCodeResult;
-
-        //    Assert.IsNotNull(result);
-        //    Assert.AreEqual(result.StatusCode, 500);
-        //}
-
 
         //[Test]
         //public void Put_CorrectViewModelGiven_ReturnsJsonViewModel()

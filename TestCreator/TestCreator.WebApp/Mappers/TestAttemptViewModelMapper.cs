@@ -40,8 +40,10 @@ namespace TestCreator.WebApp.Mappers
                 viewModel.TestAttemptEntries.Add(new TestAttemptEntryViewModel
                 {
                     Question = _questionViewModelConverter.Convert(question),
-                    Answers = testAttempt.Answers.Where(a => a.QuestionId == question.Id)
-                        .Select(x => _answerViewModelConverter.Convert(x) as TestAttemptAnswerViewModel).ToList()
+                    Answers = _answerViewModelConverter
+                        .Convert(testAttempt.Answers.Where(a => a.QuestionId == question.Id))
+                        .Cast<TestAttemptAnswerViewModel>()
+                        .ToList()
                 });
             }
 

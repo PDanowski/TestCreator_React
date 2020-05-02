@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using TestCreator.Data.Converters.DTO.Interfaces;
 using Answer = TestCreator.Data.Models.DTO.Answer;
 
@@ -19,6 +20,11 @@ namespace TestCreator.Data.Converters.DTO
         public Answer Convert(Models.DAO.Answer answer)
         {
             return _mapper.Map<Answer>(answer);
+        }
+
+        public IEnumerable<Answer> Convert(IEnumerable<Models.DAO.Answer> answers)
+        {
+            return _mapper.Map<IEnumerable<Answer>>(answers);
         }
     }
 }

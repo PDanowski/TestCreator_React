@@ -21,10 +21,9 @@ namespace TestCreator.Data.Queries.Handlers
         {
             var answers = DbContext.Answers.Where(t => t.QuestionId.Equals(request.QuestionId)).ToList();
 
-            var answerDtos = answers.Select(a => _dtoConverter.Convert(a));
             return new GetAnswersQueryResult
             {
-                Answers = answerDtos
+                Answers = _dtoConverter.Convert(answers)
             };
         }
 
@@ -32,10 +31,9 @@ namespace TestCreator.Data.Queries.Handlers
         {
             var answers = await DbContext.Answers.Where(t => t.QuestionId.Equals(request.QuestionId)).ToListAsync();
 
-            var answerDtos = answers.Select(a => _dtoConverter.Convert(a));
             return new GetAnswersQueryResult
             {
-                Answers = answerDtos
+                Answers = _dtoConverter.Convert(answers)
             };
         }
     }

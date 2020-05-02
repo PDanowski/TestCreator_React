@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using TestCreator.Data.Queries;
 using TestCreator.Data.Queries.Results;
 using TestCreator.WebApp.Controllers.Base;
+using TestCreator.WebApp.Data.Commands.Interfaces;
 using TestCreator.WebApp.Data.Queries.Interfaces;
 using TestCreator.WebApp.Services.Interfaces;
 
@@ -15,12 +16,12 @@ namespace TestCreator.WebApp.Controllers
     public class TestController : BaseApiController
     {
         private readonly IQueryDispatcher _queryDispatcher;
-        private readonly ITestResultCalculationService _testResultCalculationService;
+        private readonly ICommandDispatcher _commandDispatcher;
 
-        public TestController(IQueryDispatcher queryDispatcher, ITestResultCalculationService testResultCalculationService)
+        public TestController(IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher)
         {
             _queryDispatcher = queryDispatcher;
-            _testResultCalculationService = testResultCalculationService;
+            _commandDispatcher = commandDispatcher;
         }
 
         /// <summary>

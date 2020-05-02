@@ -41,7 +41,7 @@ namespace TestCreator.Data.Queries.Handlers
 
             return new GetTestsQueryResult
             {
-                Tests = tests?.Take(request.Number).ToList().Select(t => _testDtoConverter.Convert(t))
+                Tests = _testDtoConverter.Convert(tests?.Take(request.Number).ToList())
             };
         }
 
@@ -62,11 +62,9 @@ namespace TestCreator.Data.Queries.Handlers
                     break;
             }
 
-            var testList = await tests?.Take(request.Number)?.ToListAsync();
-
             return new GetTestsQueryResult
             {
-                Tests = testList.Select(t => _testDtoConverter.Convert(t))
+                Tests = _testDtoConverter.Convert(await tests?.Take(request.Number)?.ToListAsync())
             };
         }
     }

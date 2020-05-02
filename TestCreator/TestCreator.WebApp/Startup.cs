@@ -15,6 +15,7 @@ using Microsoft.OpenApi.Models;
 using TestCreator.Data.Database;
 using TestCreator.Data.Models.DAO;
 using TestCreator.WebApp.Bootstrappers;
+using TestCreator.WebApp.Bootstrappers.Modules;
 
 namespace TestCreator.WebApp
 {
@@ -99,8 +100,8 @@ namespace TestCreator.WebApp
         public void ConfigureContainer(ContainerBuilder builder)
         {
             // Register your own things directly with Autofac, like:
-            builder.RegisterModule(new AutofacBootstrapper.ApplicationModule());
-            builder.RegisterModule(new AutofacBootstrapper.DataModule());
+            builder.RegisterModule(new ApplicationModule());
+            builder.RegisterModule(new DataModule());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

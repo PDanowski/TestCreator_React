@@ -27,7 +27,7 @@ namespace TestCreator.Data.Queries.Handlers
 
             return new GetTestsQueryResult
             {
-                Tests = tests.Select(t => _testDtoConverter.Convert(t))
+                Tests = _testDtoConverter.Convert(tests)
             };
         }
 
@@ -39,7 +39,7 @@ namespace TestCreator.Data.Queries.Handlers
 
             return new GetTestsQueryResult
             {
-                Tests = tests.Select(t => _testDtoConverter.Convert(t))
+                Tests = _testDtoConverter.Convert(tests)
             };
         }
     }

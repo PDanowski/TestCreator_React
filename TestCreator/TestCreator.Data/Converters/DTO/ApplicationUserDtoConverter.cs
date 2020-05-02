@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using TestCreator.Data.Converters.DTO.Interfaces;
 using ApplicationUser = TestCreator.Data.Models.DTO.ApplicationUser;
 
