@@ -12,6 +12,7 @@ using TestCreator.Data.Queries;
 using TestCreator.Data.Queries.Results;
 using TestCreator.Tests.Helpers;
 using TestCreator.WebApp.Controllers;
+using TestCreator.WebApp.Converters.ViewModel;
 using TestCreator.WebApp.Data.Queries.Interfaces;
 using TestCreator.WebApp.ViewModels;
 
@@ -42,7 +43,7 @@ namespace TestCreator.Tests.Controllers
             mockQuery.Setup(x => x.DispatchAsync<GetTestQuery, GetTestQueryResult>(It.IsAny<GetTestQuery>()))
                 .Returns(Task.FromResult(queryResult));
 
-            var controller = new TestController(mockQuery.Object, null);
+            var controller = new TestController(mockQuery.Object, null, new TestViewModelConverter());
 
             var result = await controller.Get(1) as JsonResult;
 

@@ -19,4 +19,8 @@
     <ProjectReference Include="..\TestCreator.WebApp\TestCreator.WebApp.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
