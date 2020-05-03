@@ -28,5 +28,10 @@ namespace TestCreator.WebApp.Converters.ViewModel
         {
             return _mapper.Map<QuestionViewModel>(question);
         }
+
+        public IEnumerable<QuestionViewModel> Convert(IEnumerable<Question> questions)
+        {
+            return _mapper.Map<IEnumerable<QuestionViewModel>>(questions);
+        }
     }
 }

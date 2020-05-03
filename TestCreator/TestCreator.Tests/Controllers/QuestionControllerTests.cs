@@ -18,14 +18,14 @@ using TestCreator.WebApp.ViewModels;
 namespace TestCreator.Tests.Controllers
 {
     [TestFixture]
-    public class AnswerControllerTests
+    public class QuestionControllerTests
     {
         [Test]
         public async Task Get_CorrectIdGiven_ReturnsJsonViewModel()
         {
-            var queryResult = new GetAnswerQueryResult
+            var queryResult = new GetQuestionQueryResult
             {
-                Answer = new Answer
+                Question = new Question
                 {
                     Id = 1,
                     Text = "Text1"
@@ -34,16 +34,16 @@ namespace TestCreator.Tests.Controllers
 
             var mockQuery = new Mock<IQueryDispatcher>();
             mockQuery.Setup(x =>
-                    x.DispatchAsync<GetAnswerQuery, GetAnswerQueryResult>(It.IsAny<GetAnswerQuery>()))
+                    x.DispatchAsync<GetQuestionQuery, GetQuestionQueryResult>(It.IsAny<GetQuestionQuery>()))
                 .Returns(Task.FromResult(queryResult));
 
-            var controller = new AnswerController(mockQuery.Object, null, new AnswerViewModelConverter());
+            var controller = new QuestionController(mockQuery.Object, null, new QuestionViewModelConverter());
 
             var result = await controller.Get(1) as JsonResult;
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(result.GetValueFromJsonResult<string>("Text"), queryResult.Answer.Text);
-            Assert.AreEqual(result.GetValueFromJsonResult<int>("Id"), queryResult.Answer.Id);
+            Assert.AreEqual(result.GetObjectFromJsonResult<QuestionViewModel>().Text, queryResult.Question.Text);
+            Assert.AreEqual(result.GetObjectFromJsonResult<QuestionViewModel>().Id, queryResult.Question.Id);
         }
 
         [Test]
@@ -51,10 +51,10 @@ namespace TestCreator.Tests.Controllers
         {
             var mockQuery = new Mock<IQueryDispatcher>();
             mockQuery.Setup(x =>
-                    x.DispatchAsync<GetAnswerQuery, GetAnswerQueryResult>(It.IsAny<GetAnswerQuery>()))
-                .Returns(Task.FromResult(new GetAnswerQueryResult()));
+                    x.DispatchAsync<GetQuestionQuery, GetQuestionQueryResult>(It.IsAny<GetQuestionQuery>()))
+                .Returns(Task.FromResult(new GetQuestionQueryResult()));
 
-            var controller = new AnswerController(mockQuery.Object, null, new AnswerViewModelConverter());
+            var controller = new QuestionController(mockQuery.Object, null, new QuestionViewModelConverter());
 
             var result = await controller.Get(1);
 
@@ -63,18 +63,18 @@ namespace TestCreator.Tests.Controllers
         }
 
         [Test]
-        public async Task GetByQuestionId_CorrectIdGiven_ReturnsJsonViewModel()
+        public async Task GetByTestId_CorrectIdGiven_ReturnsJsonViewModel()
         {
-            var queryResult = new GetAnswersQueryResult
+            var queryResult = new GetQuestionsQueryResult
             {
-                Answers = new List<Answer>
+                Questions = new List<Question>
                 {
-                    new Answer
+                    new Question
                     {
                         Id = 1,
                         Text = "Text1"
                     },
-                    new Answer
+                    new Question
                     {
                         Id = 2,
                         Text = "Text2"
@@ -84,30 +84,30 @@ namespace TestCreator.Tests.Controllers
 
             var mockQuery = new Mock<IQueryDispatcher>();
             mockQuery.Setup(x =>
-                    x.DispatchAsync<GetAnswersQuery, GetAnswersQueryResult>(It.IsAny<GetAnswersQuery>()))
+                    x.DispatchAsync<GetQuestionsQuery, GetQuestionsQueryResult>(It.IsAny<GetQuestionsQuery>()))
                 .Returns(Task.FromResult(queryResult));
 
-            var controller = new AnswerController(mockQuery.Object, null, new AnswerViewModelConverter());
+            var controller = new QuestionController(mockQuery.Object, null, new QuestionViewModelConverter());
 
-            var result = await controller.GetByQuestionId(1) as JsonResult;
+            var result = await controller.GetByTestId(1) as JsonResult;
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(result.GetIEnumberableFromJsonResult<AnswerViewModel>().Count(), queryResult.Answers.Count());
-            Assert.AreEqual(result.GetIEnumberableFromJsonResult<AnswerViewModel>().First().Text, queryResult.Answers.First().Text);
-            Assert.AreEqual(result.GetIEnumberableFromJsonResult<AnswerViewModel>().First().Id, queryResult.Answers.First().Id);
+            Assert.AreEqual(result.GetIEnumberableFromJsonResult<QuestionViewModel>().Count(), queryResult.Questions.Count());
+            Assert.AreEqual(result.GetIEnumberableFromJsonResult<QuestionViewModel>().First().Text, queryResult.Questions.First().Text);
+            Assert.AreEqual(result.GetIEnumberableFromJsonResult<QuestionViewModel>().First().Id, queryResult.Questions.First().Id);
         }
 
         [Test]
-        public async Task GetByQuestionId_InvalidIdGiven_ReturnsNotFound()
+        public async Task GetByTestId_InvalidIdGiven_ReturnsNotFound()
         {
             var mockQuery = new Mock<IQueryDispatcher>();
             mockQuery.Setup(x =>
-                    x.DispatchAsync<GetAnswersQuery, GetAnswersQueryResult>(It.IsAny<GetAnswersQuery>()))
-                .Returns(Task.FromResult<GetAnswersQueryResult>(new GetAnswersQueryResult()));
+                    x.DispatchAsync<GetQuestionsQuery, GetQuestionsQueryResult>(It.IsAny<GetQuestionsQuery>()))
+                .Returns(Task.FromResult(new GetQuestionsQueryResult()));
 
-            var controller = new AnswerController(mockQuery.Object, null, new AnswerViewModelConverter());
+            var controller = new QuestionController(mockQuery.Object, null, new QuestionViewModelConverter());
 
-            var result = await controller.GetByQuestionId(1);
+            var result = await controller.GetByTestId(1);
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOf<NotFoundObjectResult>(result);
@@ -116,31 +116,31 @@ namespace TestCreator.Tests.Controllers
         //[Test]
         //public void Post_CorrectViewModelGiven_ReturnsJsonViewModel()
         //{
-        //    var viewModel = new AnswerViewModel
+        //    var viewModel = new QuestionViewModel
         //    {
         //        Id = 1,
         //        Text = "Text1"
         //    };
 
-        //    var mockRepo = new Mock<IAnswerRepository>();
-        //    mockRepo.Setup(x => x.CreateAnswer(It.IsAny<AnswerViewModel>())).Returns(viewModel);
+        //    var mockRepo = new Mock<IQuestionRepository>();
+        //    mockRepo.Setup(x => x.CreateQuestion(It.IsAny<QuestionViewModel>())).Returns(viewModel);
 
 
-        //    var controller = new AnswerController(mockRepo.Object);
+        //    var controller = new QuestionController(mockRepo.Object);
 
         //    var result = controller.Post(viewModel) as JsonResult;
 
         //    Assert.IsNotNull(result);
-        //    Assert.AreEqual(result.GetObjectFromJsonResult<AnswerViewModel>().Text, viewModel.Text);
-        //    Assert.AreEqual(result.GetObjectFromJsonResult<AnswerViewModel>().Id, viewModel.Id);
+        //    Assert.AreEqual(result.GetObjectFromJsonResult<QuestionViewModel>().Text, viewModel.Text);
+        //    Assert.AreEqual(result.GetObjectFromJsonResult<QuestionViewModel>().Id, viewModel.Id);
         //}
 
         //[Test]
         //public void Post_InvalidViewModelGiven_ReturnsStatusCode500()
         //{
-        //    var mockRepo = new Mock<IAnswerRepository>();
+        //    var mockRepo = new Mock<IQuestionRepository>();
 
-        //    var controller = new AnswerController(mockRepo.Object);
+        //    var controller = new QuestionController(mockRepo.Object);
 
         //    var result = controller.Post(null) as StatusCodeResult;
 
@@ -151,31 +151,31 @@ namespace TestCreator.Tests.Controllers
         //[Test]
         //public void Put_CorrectViewModelGiven_ReturnsJsonViewModel()
         //{
-        //    var viewModel = new AnswerViewModel
+        //    var viewModel = new QuestionViewModel
         //    {
         //        Id = 1,
         //        Text = "Text1"
         //    };
 
-        //    var mockRepo = new Mock<IAnswerRepository>();
-        //    mockRepo.Setup(x => x.UpdateAnswer(It.IsAny<AnswerViewModel>())).Returns(viewModel);
+        //    var mockRepo = new Mock<IQuestionRepository>();
+        //    mockRepo.Setup(x => x.UpdateQuestion(It.IsAny<QuestionViewModel>())).Returns(viewModel);
 
         //    var controller =
-        //        new AnswerController(mockRepo.Object);
+        //        new QuestionController(mockRepo.Object);
 
         //    var result = controller.Put(viewModel) as JsonResult;
 
         //    Assert.IsNotNull(result);
-        //    Assert.AreEqual(result.GetObjectFromJsonResult<AnswerViewModel>().Text, viewModel.Text);
-        //    Assert.AreEqual(result.GetObjectFromJsonResult<AnswerViewModel>().Id, viewModel.Id);
+        //    Assert.AreEqual(result.GetObjectFromJsonResult<QuestionViewModel>().Text, viewModel.Text);
+        //    Assert.AreEqual(result.GetObjectFromJsonResult<QuestionViewModel>().Id, viewModel.Id);
         //}
 
         //[Test]
         //public void Put_InvalidViewModelGiven_ReturnsStatusCode500()
         //{
-        //    var mockRepo = new Mock<IAnswerRepository>();
+        //    var mockRepo = new Mock<IQuestionRepository>();
 
-        //    var controller = new AnswerController(mockRepo.Object);
+        //    var controller = new QuestionController(mockRepo.Object);
 
         //    var result = controller.Put(null) as StatusCodeResult;
 
@@ -186,16 +186,16 @@ namespace TestCreator.Tests.Controllers
         //[Test]
         //public void Put_CorrectViewModelErrorDuringProcessing_ReturnsNotFound()
         //{
-        //    var viewModel = new AnswerViewModel
+        //    var viewModel = new QuestionViewModel
         //    {
         //        Id = 1,
         //        Text = "Text1"
         //    };
 
-        //    var mockRepo = new Mock<IAnswerRepository>();
-        //    mockRepo.Setup(x => x.UpdateAnswer(It.IsAny<AnswerViewModel>())).Returns<AnswerViewModel>(null);
+        //    var mockRepo = new Mock<IQuestionRepository>();
+        //    mockRepo.Setup(x => x.UpdateQuestion(It.IsAny<QuestionViewModel>())).Returns<QuestionViewModel>(null);
 
-        //    var controller = new AnswerController(mockRepo.Object);
+        //    var controller = new QuestionController(mockRepo.Object);
 
         //    var result = controller.Put(viewModel);
 
@@ -208,11 +208,11 @@ namespace TestCreator.Tests.Controllers
         //{
         //    int id = 1;
 
-        //    var mockRepo = new Mock<IAnswerRepository>();
-        //    mockRepo.Setup(x => x.DeleteAnswer(It.IsAny<int>())).Returns(true);
+        //    var mockRepo = new Mock<IQuestionRepository>();
+        //    mockRepo.Setup(x => x.DeleteQuestion(It.IsAny<int>())).Returns(true);
 
         //    var controller =
-        //        new AnswerController(mockRepo.Object);
+        //        new QuestionController(mockRepo.Object);
 
         //    var result = controller.Delete(id);
 
@@ -223,10 +223,10 @@ namespace TestCreator.Tests.Controllers
         //[Test]
         //public void Delete_CorrectViewModelErrorDuringProcessing_ReturnsNotFound()
         //{
-        //    var mockRepo = new Mock<IAnswerRepository>();
-        //    mockRepo.Setup(x => x.DeleteAnswer(1)).Returns(false);
+        //    var mockRepo = new Mock<IQuestionRepository>();
+        //    mockRepo.Setup(x => x.DeleteQuestion(1)).Returns(false);
 
-        //    var controller = new AnswerController(mockRepo.Object);
+        //    var controller = new QuestionController(mockRepo.Object);
 
         //    var result = controller.Delete(2);
 

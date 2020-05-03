@@ -10,5 +10,6 @@ namespace TestCreator.WebApp.Converters.ViewModel.Interfaces
     public interface IQuestionViewModelConverter
     {
         QuestionViewModel Convert(Question question);
+        IEnumerable<QuestionViewModel> Convert(IEnumerable<Question> questions);
     }
 }

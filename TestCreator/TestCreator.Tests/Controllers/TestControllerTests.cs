@@ -44,7 +44,7 @@ namespace TestCreator.Tests.Controllers
         {
             var mockQuery = new Mock<IQueryDispatcher>();
             mockQuery.Setup(x => x.DispatchAsync<GetTestQuery, GetTestQueryResult>(It.IsAny<GetTestQuery>()))
-                .Returns(Task.FromResult<GetTestQueryResult>(null));
+                .Returns(Task.FromResult<GetTestQueryResult>(new GetTestQueryResult()));
 
             var controller = new TestController(mockQuery.Object, null, new TestViewModelConverter());
 
