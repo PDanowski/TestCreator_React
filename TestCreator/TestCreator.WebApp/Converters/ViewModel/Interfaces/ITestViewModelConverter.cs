@@ -9,6 +9,7 @@ namespace TestCreator.WebApp.Converters.ViewModel.Interfaces
 {
     public interface ITestViewModelConverter
     {
-        TestViewModel Convert(Test result);
+        TestViewModel Convert(Test test);
+        IEnumerable<TestViewModel> Convert(IEnumerable<Test> tests);
     }
 }

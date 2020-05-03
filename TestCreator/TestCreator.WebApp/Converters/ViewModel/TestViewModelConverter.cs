@@ -24,9 +24,14 @@ namespace TestCreator.WebApp.Converters.ViewModel
             _mapper.ConfigurationProvider.AssertConfigurationIsValid();
         }
 
-        public TestViewModel Convert(Test result)
+        public TestViewModel Convert(Test test)
         {
-            return _mapper.Map<TestViewModel>(result);
+            return _mapper.Map<TestViewModel>(test);
+        }
+
+        public IEnumerable<TestViewModel> Convert(IEnumerable<Test> tests)
+        {
+            return _mapper.Map<IEnumerable<TestViewModel>>(tests);
         }
     }
 }

@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using TestCreator.Data.Queries;
 using TestCreator.Data.Queries.Results;
 using TestCreator.Tests.Helpers;
 using TestCreator.WebApp.Controllers;
 using TestCreator.WebApp.Converters.ViewModel;
 using TestCreator.WebApp.Data.Queries.Interfaces;
-using TestCreator.WebApp.ViewModels;
 
 namespace TestCreator.Tests.Controllers
 {
@@ -24,15 +17,9 @@ namespace TestCreator.Tests.Controllers
         [Test]
         public async Task Get_CorrectIdGiven_ReturnsJsonViewModel()
         {
-            var viewModel = new TestViewModel
-            {
-                Id = 1,
-                Title = "title1"
-            };
-
             var queryResult = new GetTestQueryResult()
             {
-                Test = new TestCreator.Data.Models.DTO.Test
+                Test = new Data.Models.DTO.Test
                 {
                     Id = 1,
                     Title = "title1"
@@ -48,23 +35,24 @@ namespace TestCreator.Tests.Controllers
             var result = await controller.Get(1) as JsonResult;
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(result.GetValueFromJsonResult<string>("Title"), viewModel.Title);
-            Assert.AreEqual(result.GetValueFromJsonResult<int>("Id"), viewModel.Id);
+            Assert.AreEqual(result.GetValueFromJsonResult<string>("Title"), queryResult.Test.Title);
+            Assert.AreEqual(result.GetValueFromJsonResult<int>("Id"), queryResult.Test.Id);
         }
 
-        //[Test]
-        //public void Get_InvalidIdGiven_ReturnsNotFound()
-        //{
-        //    var mockRepo = new Mock<ITestRepository>();
-        //    mockRepo.Setup(x => x.GetTest(It.IsAny<int>())).Returns<Test>(null);
+        [Test]
+        public async Task Get_InvalidIdGiven_ReturnsNotFound()
+        {
+            var mockQuery = new Mock<IQueryDispatcher>();
+            mockQuery.Setup(x => x.DispatchAsync<GetTestQuery, GetTestQueryResult>(It.IsAny<GetTestQuery>()))
+                .Returns(Task.FromResult<GetTestQueryResult>(null));
 
-        //    var controller = new TestController(mockRepo.Object, null);
+            var controller = new TestController(mockQuery.Object, null, new TestViewModelConverter());
 
-        //    var result = controller.Get(1);
+            var result = await controller.Get(1);
 
-        //    Assert.IsNotNull(result);
-        //    Assert.IsInstanceOf<NotFoundObjectResult>(result);
-        //}
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOf<NotFoundObjectResult>(result);
+        }
 
         //[Test]
         //public void Put_CorrectViewModelGiven_ReturnsJsonViewModel()
