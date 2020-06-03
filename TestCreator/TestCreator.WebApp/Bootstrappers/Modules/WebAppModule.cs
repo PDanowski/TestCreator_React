@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
+using TestCreator.Data.Converters.DTO.Interfaces;
+using TestCreator.WebApp.Converters.DTO;
 using TestCreator.WebApp.Converters.ViewModel;
 using TestCreator.WebApp.Converters.ViewModel.Interfaces;
 using TestCreator.WebApp.Mappers;
@@ -29,6 +31,8 @@ namespace TestCreator.WebApp.Bootstrappers.Modules
             builder.RegisterType<QuestionViewModelConverter>().As<IQuestionViewModelConverter>();
             builder.RegisterType<ResultViewModelConverter>().As<IResultViewModelConverter>();
             builder.RegisterType<UserViewModelConverter>().As<IUserViewModelConverter>();
+
+            builder.RegisterType<ApplicationUserDtoConverter>().As<IApplicationUserDtoConverter>();
 
             #endregion
 
