@@ -33,6 +33,7 @@ namespace TestCreator.WebApp.Bootstrappers.Modules
             builder.RegisterType<UserViewModelConverter>().As<IUserViewModelConverter>();
 
             builder.RegisterType<ApplicationUserDtoConverter>().As<IApplicationUserDtoConverter>();
+            builder.RegisterType<AnswerDtoConverter>().As<IAnswerDtoConverter>();
 
             #endregion
 

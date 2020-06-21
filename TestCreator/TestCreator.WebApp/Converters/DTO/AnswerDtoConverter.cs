@@ -9,24 +9,24 @@ using TestCreator.WebApp.ViewModels;
 
 namespace TestCreator.WebApp.Converters.DTO
 {
-    public class ApplicationUserDtoConverter : IApplicationUserDtoConverter
+    public class AnswerDtoConverter : IAnswerDtoConverter
     {
         private readonly IMapper _mapper;
 
-        public ApplicationUserDtoConverter()
+        public AnswerDtoConverter()
         {
             var mapperConfig = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<UserViewModel, ApplicationUser>();
+                cfg.CreateMap<AnswerViewModel, Answer>();
             });
 
             _mapper = mapperConfig.CreateMapper();
             _mapper.ConfigurationProvider.AssertConfigurationIsValid();
         }
 
-        public ApplicationUser Convert(UserViewModel viewModel)
+        public Answer Convert(AnswerViewModel viewModel)
         {
-            return _mapper.Map<ApplicationUser>(viewModel);
+            return _mapper.Map<Answer>(viewModel);
         }
     }
 }

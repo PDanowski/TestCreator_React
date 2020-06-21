@@ -37,7 +37,7 @@ namespace TestCreator.Tests.Controllers
                     x.DispatchAsync<GetAnswerQuery, GetAnswerQueryResult>(It.IsAny<GetAnswerQuery>()))
                 .Returns(Task.FromResult(queryResult));
 
-            var controller = new AnswerController(mockQuery.Object, null, new AnswerViewModelConverter());
+            var controller = new AnswerController(mockQuery.Object, null, new AnswerViewModelConverter(), null);
 
             var result = await controller.Get(1) as JsonResult;
 
@@ -54,7 +54,7 @@ namespace TestCreator.Tests.Controllers
                     x.DispatchAsync<GetAnswerQuery, GetAnswerQueryResult>(It.IsAny<GetAnswerQuery>()))
                 .Returns(Task.FromResult(new GetAnswerQueryResult()));
 
-            var controller = new AnswerController(mockQuery.Object, null, new AnswerViewModelConverter());
+            var controller = new AnswerController(mockQuery.Object, null, new AnswerViewModelConverter(), null);
 
             var result = await controller.Get(1);
 
@@ -87,7 +87,7 @@ namespace TestCreator.Tests.Controllers
                     x.DispatchAsync<GetAnswersQuery, GetAnswersQueryResult>(It.IsAny<GetAnswersQuery>()))
                 .Returns(Task.FromResult(queryResult));
 
-            var controller = new AnswerController(mockQuery.Object, null, new AnswerViewModelConverter());
+            var controller = new AnswerController(mockQuery.Object, null, new AnswerViewModelConverter(), null);
 
             var result = await controller.GetByQuestionId(1) as JsonResult;
 
@@ -105,7 +105,7 @@ namespace TestCreator.Tests.Controllers
                     x.DispatchAsync<GetAnswersQuery, GetAnswersQueryResult>(It.IsAny<GetAnswersQuery>()))
                 .Returns(Task.FromResult<GetAnswersQueryResult>(new GetAnswersQueryResult()));
 
-            var controller = new AnswerController(mockQuery.Object, null, new AnswerViewModelConverter());
+            var controller = new AnswerController(mockQuery.Object, null, new AnswerViewModelConverter(), null);
 
             var result = await controller.GetByQuestionId(1);
 
