@@ -13,7 +13,7 @@ namespace TestCreator.WebApp.Controllers
     [ApiController]
     public class TestAttemptController : BaseApiController
     {
-        private ITestAttemptViewModelMapper _mapper;
+        private readonly ITestAttemptViewModelMapper _mapper;
         private readonly ITestResultCalculationService _service;
         private readonly IQueryDispatcher _queryDispatcher;
 
@@ -32,7 +32,7 @@ namespace TestCreator.WebApp.Controllers
         /// <param name="id"></param>
         /// <returns>Single TestAttemptViewModel with given {id}</returns>
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAsync(int id)
+        public async Task<IActionResult> Get(int id)
         {
             var queryResult = await _queryDispatcher.DispatchAsync<GetTestAttemptQuery, GetTestAttemptQueryResult>(new GetTestAttemptQuery
             {

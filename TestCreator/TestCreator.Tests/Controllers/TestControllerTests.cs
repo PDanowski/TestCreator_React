@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using AutoFixture;
+using AutoFixture.AutoMoq;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -6,7 +8,9 @@ using TestCreator.Data.Queries;
 using TestCreator.Data.Queries.Results;
 using TestCreator.Tests.Helpers;
 using TestCreator.WebApp.Controllers;
+using TestCreator.WebApp.Converters.DTO;
 using TestCreator.WebApp.Converters.ViewModel;
+using TestCreator.WebApp.Data.Commands.Interfaces;
 using TestCreator.WebApp.Data.Queries.Interfaces;
 
 namespace TestCreator.Tests.Controllers
@@ -14,6 +18,27 @@ namespace TestCreator.Tests.Controllers
     [TestFixture]
     public class TestControllerTests
     {
+        private TestController _controller;
+        private Mock<IQueryDispatcher> _queryDispatcherMock;
+        private Mock<ICommandDispatcher> _commandDispatcherMock;
+        private IFixture _fixture;
+
+        [OneTimeSetUp]
+        public void SetUp()
+        {
+            _fixture = new Fixture().Customize(new AutoMoqCustomization());
+            _queryDispatcherMock = _fixture.Freeze<Mock<IQueryDispatcher>>();
+            _commandDispatcherMock = _fixture.Freeze<Mock<ICommandDispatcher>>();
+            _controller = new TestController(_queryDispatcherMock.Object, _commandDispatcherMock.Object, new TestViewModelConverter(), new TestDtoConverter());
+        }
+
+        [TearDown]
+        public void Reset()
+        {
+            _queryDispatcherMock.Reset();
+            _commandDispatcherMock.Reset();
+        }
+
         [Test]
         public async Task Get_CorrectIdGiven_ReturnsJsonViewModel()
         {
@@ -25,14 +50,11 @@ namespace TestCreator.Tests.Controllers
                     Title = "title1"
                 }
             };
-            
-            var mockQuery = new Mock<IQueryDispatcher>();
-            mockQuery.Setup(x => x.DispatchAsync<GetTestQuery, GetTestQueryResult>(It.IsAny<GetTestQuery>()))
+
+            _queryDispatcherMock.Setup(x => x.DispatchAsync<GetTestQuery, GetTestQueryResult>(It.IsAny<GetTestQuery>()))
                 .Returns(Task.FromResult(queryResult));
 
-            var controller = new TestController(mockQuery.Object, null, new TestViewModelConverter());
-
-            var result = await controller.Get(1) as JsonResult;
+            var result = await _controller.Get(1) as JsonResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual(result.GetValueFromJsonResult<string>("Title"), queryResult.Test.Title);
@@ -42,13 +64,10 @@ namespace TestCreator.Tests.Controllers
         [Test]
         public async Task Get_InvalidIdGiven_ReturnsNotFound()
         {
-            var mockQuery = new Mock<IQueryDispatcher>();
-            mockQuery.Setup(x => x.DispatchAsync<GetTestQuery, GetTestQueryResult>(It.IsAny<GetTestQuery>()))
+            _queryDispatcherMock.Setup(x => x.DispatchAsync<GetTestQuery, GetTestQueryResult>(It.IsAny<GetTestQuery>()))
                 .Returns(Task.FromResult<GetTestQueryResult>(new GetTestQueryResult()));
 
-            var controller = new TestController(mockQuery.Object, null, new TestViewModelConverter());
-
-            var result = await controller.Get(1);
+            var result = await _controller.Get(1);
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOf<NotFoundObjectResult>(result);

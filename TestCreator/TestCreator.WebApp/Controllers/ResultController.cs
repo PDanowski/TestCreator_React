@@ -14,15 +14,12 @@ namespace TestCreator.WebApp.Controllers
     public class ResultController : BaseApiController
     {
         private readonly IQueryDispatcher _queryDispatcher;
-        private readonly ICommandDispatcher _commandDispatcher;
         private readonly IResultViewModelConverter _converter;
 
         public ResultController(IQueryDispatcher queryDispatcher, 
-            ICommandDispatcher commandDispatcher, 
             IResultViewModelConverter converter)
         {
             _queryDispatcher = queryDispatcher;
-            _commandDispatcher = commandDispatcher;
             _converter = converter;
         }
 

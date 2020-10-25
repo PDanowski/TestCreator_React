@@ -14,7 +14,10 @@ namespace TestCreator.WebApp.Converters.DTO
         {
             var mapperConfig = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<TestViewModel, Test>();
+                cfg.CreateMap<TestViewModel, Test>()
+                    .ForMember(x => x.Flags, opt => opt.Ignore())
+                    .ForMember(x => x.Type, opt => opt.Ignore())
+                    .ForMember(x => x.Notes, opt => opt.Ignore());
             });
 
             _mapper = mapperConfig.CreateMapper();

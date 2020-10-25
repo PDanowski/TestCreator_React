@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoFixture;
+using AutoFixture.AutoMoq;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -18,6 +20,24 @@ namespace TestCreator.Tests.Controllers
     [TestFixture]
     public class ResultControllerTests
     {
+        private ResultController _controller;
+        private Mock<IQueryDispatcher> _queryDispatcherMock;
+        private IFixture _fixture;
+
+        [OneTimeSetUp]
+        public void SetUp()
+        {
+            _fixture = new Fixture().Customize(new AutoMoqCustomization());
+            _queryDispatcherMock = _fixture.Freeze<Mock<IQueryDispatcher>>();
+            _controller = new ResultController(_queryDispatcherMock.Object, new ResultViewModelConverter());
+        }
+
+        [TearDown]
+        public void Reset()
+        {
+            _queryDispatcherMock.Reset();
+        }
+
         [Test]
         public async Task Get_CorrectIdGiven_ReturnsJsonViewModel()
         {
@@ -30,14 +50,11 @@ namespace TestCreator.Tests.Controllers
                 }
             };
 
-            var mockQuery = new Mock<IQueryDispatcher>();
-            mockQuery.Setup(x =>
+            _queryDispatcherMock.Setup(x =>
                     x.DispatchAsync<GetResultQuery, GetResultQueryResult>(It.IsAny<GetResultQuery>()))
                 .Returns(Task.FromResult(queryResult));
 
-            var controller = new ResultController(mockQuery.Object, null, new ResultViewModelConverter());
-
-            var result = await controller.Get(1) as JsonResult;
+            var result = await _controller.Get(1) as JsonResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual(result.GetObjectFromJsonResult<ResultViewModel>().Text, queryResult.Result.Text);
@@ -47,14 +64,11 @@ namespace TestCreator.Tests.Controllers
         [Test]
         public async Task Get_InvalidIdGiven_ReturnsNotFound()
         {
-            var mockQuery = new Mock<IQueryDispatcher>();
-            mockQuery.Setup(x =>
+            _queryDispatcherMock.Setup(x =>
                     x.DispatchAsync<GetResultQuery, GetResultQueryResult>(It.IsAny<GetResultQuery>()))
                 .Returns(Task.FromResult<GetResultQueryResult>(new GetResultQueryResult()));
 
-            var controller = new ResultController(mockQuery.Object, null, new ResultViewModelConverter());
-
-            var result = await controller.Get(1);
+            var result = await _controller.Get(1);
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOf<NotFoundObjectResult>(result);
@@ -80,14 +94,11 @@ namespace TestCreator.Tests.Controllers
                 }
             };
 
-            var mockQuery = new Mock<IQueryDispatcher>();
-            mockQuery.Setup(x =>
+            _queryDispatcherMock.Setup(x =>
                     x.DispatchAsync<GetResultsQuery, GetResultsQueryResult>(It.IsAny<GetResultsQuery>()))
                 .Returns(Task.FromResult(queryResult));
 
-            var controller = new ResultController(mockQuery.Object, null, new ResultViewModelConverter());
-
-            var result = await controller.GetByTestId(1) as JsonResult;
+            var result = await _controller.GetByTestId(1) as JsonResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual(result.GetIEnumberableFromJsonResult<ResultViewModel>().Count(), queryResult.Results.Count());
@@ -98,14 +109,11 @@ namespace TestCreator.Tests.Controllers
         [Test]
         public async Task GetByTestId_InvalidIdGiven_ReturnsNotFound()
         {
-            var mockQuery = new Mock<IQueryDispatcher>();
-            mockQuery.Setup(x =>
+            _queryDispatcherMock.Setup(x =>
                     x.DispatchAsync<GetResultsQuery, GetResultsQueryResult>(It.IsAny<GetResultsQuery>()))
                 .Returns(Task.FromResult(new GetResultsQueryResult()));
 
-            var controller = new ResultController(mockQuery.Object, null, new ResultViewModelConverter());
-
-            var result = await controller.GetByTestId(1);
+            var result = await _controller.GetByTestId(1);
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOf<NotFoundObjectResult>(result);
