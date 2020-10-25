@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TestCreator.Data.Queries.Results;
 using TestCreator.WebApp.Converters.ViewModel.Interfaces;

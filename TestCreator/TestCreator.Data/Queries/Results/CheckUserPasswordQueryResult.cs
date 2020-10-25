@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TestCreator.Data.Queries.Interfaces;
+﻿using TestCreator.Data.Queries.Interfaces;
 
 namespace TestCreator.Data.Queries.Results
 {

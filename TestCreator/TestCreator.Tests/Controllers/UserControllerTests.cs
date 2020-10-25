@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -9,7 +6,6 @@ using TestCreator.Data.Commands;
 using TestCreator.Data.Models.DTO;
 using TestCreator.Data.Queries;
 using TestCreator.Data.Queries.Results;
-using TestCreator.Tests.Helpers;
 using TestCreator.WebApp.Controllers;
 using TestCreator.WebApp.Converters.DTO;
 using TestCreator.WebApp.Data.Commands.Interfaces;

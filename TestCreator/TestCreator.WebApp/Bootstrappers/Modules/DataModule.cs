@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
 using TestCreator.Data.Commands.Handlers.Common.Interfaces;
 using TestCreator.Data.Converters.DAO;
 using TestCreator.Data.Converters.DAO.Interfaces;

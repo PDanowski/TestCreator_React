@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using TestCreator.Data.Models.DTO;
 using TestCreator.WebApp.Converters.DTO.Interfaces;
 using TestCreator.WebApp.ViewModels;
