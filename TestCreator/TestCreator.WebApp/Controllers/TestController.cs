@@ -1,12 +1,17 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TestCreator.Data.Commands;
 using TestCreator.Data.Queries;
 using TestCreator.Data.Queries.Consts;
 using TestCreator.Data.Queries.Results;
 using TestCreator.WebApp.Controllers.Base;
+using TestCreator.WebApp.Converters.DTO.Interfaces;
 using TestCreator.WebApp.Converters.ViewModel.Interfaces;
 using TestCreator.WebApp.Data.Commands.Interfaces;
 using TestCreator.WebApp.Data.Queries.Interfaces;
+using TestCreator.WebApp.ViewModels;
 
 namespace TestCreator.WebApp.Controllers
 {
@@ -16,14 +21,18 @@ namespace TestCreator.WebApp.Controllers
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly ITestViewModelConverter _converter;
+        private readonly ITestDtoConverter _dtoConverter;
+
 
         public TestController(IQueryDispatcher queryDispatcher, 
             ICommandDispatcher commandDispatcher, 
-            ITestViewModelConverter converter)
+            ITestViewModelConverter converter, 
+            ITestDtoConverter dtoConverter)
         {
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
             _converter = converter;
+            _dtoConverter = dtoConverter;
         }
 
         /// <summary>
@@ -108,6 +117,82 @@ namespace TestCreator.WebApp.Controllers
                 });
 
             return new JsonResult(_converter.Convert(queryResult.Tests), JsonSettings);
+        }
+
+        /// <summary>
+        /// PUT: api/test/put
+        /// </summary>
+        /// <param name="viewModel">TestViewModel with data</param>
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> Put([FromBody] TestViewModel viewModel)
+        {
+            if (viewModel == null)
+            {
+                return new StatusCodeResult(500);
+            }
+
+            try
+            {
+                await _commandDispatcher.DispatchAsync<UpdateTestCommand>(new UpdateTestCommand
+                {
+                    Test = _dtoConverter.Convert(viewModel)
+                });
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { ErrorMessage = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// POST: api/test/post
+        /// </summary>
+        /// <param name="viewModel">TestViewModel with data</param>
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Post([FromBody] TestViewModel viewModel)
+        {
+            if (viewModel == null)
+            {
+                return new StatusCodeResult(500);
+            }
+
+            try
+            {
+                await _commandDispatcher.DispatchAsync<AddTestCommand>(new AddTestCommand
+                {
+                    Test = _dtoConverter.Convert(viewModel)
+                });
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { ErrorMessage = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// DELETE: api/test/delete
+        /// </summary>
+        /// <param name="id">Identifier of TestViewModel</param>
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await _commandDispatcher.DispatchAsync<RemoveTestCommand>(new RemoveTestCommand
+                {
+                    Id = id
+                });
+                return new NoContentResult();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { ErrorMessage = ex.Message });
+            }
         }
     }
 }
