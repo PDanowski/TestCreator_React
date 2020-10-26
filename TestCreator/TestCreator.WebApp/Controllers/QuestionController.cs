@@ -93,7 +93,7 @@ namespace TestCreator.WebApp.Controllers
         /// <param name="viewModel">QuestionViewModel with data</param>
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> PostAsync([FromBody] QuestionViewModel viewModel)
+        public async Task<IActionResult> Post([FromBody] QuestionViewModel viewModel)
         {
             if (viewModel == null)
             {
