@@ -41,20 +41,14 @@ namespace TestCreator.Tests.Controllers
         [Test]
         public async Task Get_CorrectIdGiven_ReturnsJsonViewModel()
         {
-            var queryResult = new GetResultQueryResult
-            {
-                Result = new Result
-                {
-                    Id = 1,
-                    Text = "Text1"
-                }
-            };
+            var queryResult = _fixture.Create<GetResultQueryResult>();
+            var resultId = _fixture.Create<int>();
 
             _queryDispatcherMock.Setup(x =>
                     x.DispatchAsync<GetResultQuery, GetResultQueryResult>(It.IsAny<GetResultQuery>()))
                 .Returns(Task.FromResult(queryResult));
 
-            var result = await _controller.Get(1) as JsonResult;
+            var result = await _controller.Get(resultId) as JsonResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual(result.GetObjectFromJsonResult<ResultViewModel>().Text, queryResult.Result.Text);
@@ -64,11 +58,13 @@ namespace TestCreator.Tests.Controllers
         [Test]
         public async Task Get_InvalidIdGiven_ReturnsNotFound()
         {
+            var resultId = _fixture.Create<int>();
+
             _queryDispatcherMock.Setup(x =>
                     x.DispatchAsync<GetResultQuery, GetResultQueryResult>(It.IsAny<GetResultQuery>()))
                 .Returns(Task.FromResult<GetResultQueryResult>(new GetResultQueryResult()));
 
-            var result = await _controller.Get(1);
+            var result = await _controller.Get(resultId);
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOf<NotFoundObjectResult>(result);
@@ -77,28 +73,14 @@ namespace TestCreator.Tests.Controllers
         [Test]
         public async Task GetByTestId_CorrectIdGiven_ReturnsJsonViewModel()
         {
-            var queryResult = new GetResultsQueryResult
-            {
-                Results = new List<Result>
-                {
-                    new Result
-                    {
-                        Id = 1,
-                        Text = "Text1"
-                    },
-                    new Result
-                    {
-                        Id = 2,
-                        Text = "Text2"
-                    }
-                }
-            };
+            var queryResult = _fixture.Create<GetResultsQueryResult>();
+            var testId = _fixture.Create<int>();
 
             _queryDispatcherMock.Setup(x =>
                     x.DispatchAsync<GetResultsQuery, GetResultsQueryResult>(It.IsAny<GetResultsQuery>()))
                 .Returns(Task.FromResult(queryResult));
 
-            var result = await _controller.GetByTestId(1) as JsonResult;
+            var result = await _controller.GetByTestId(testId) as JsonResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual(result.GetIEnumberableFromJsonResult<ResultViewModel>().Count(), queryResult.Results.Count());
@@ -109,11 +91,13 @@ namespace TestCreator.Tests.Controllers
         [Test]
         public async Task GetByTestId_InvalidIdGiven_ReturnsNotFound()
         {
+            var testId = _fixture.Create<int>();
+
             _queryDispatcherMock.Setup(x =>
                     x.DispatchAsync<GetResultsQuery, GetResultsQueryResult>(It.IsAny<GetResultsQuery>()))
                 .Returns(Task.FromResult(new GetResultsQueryResult()));
 
-            var result = await _controller.GetByTestId(1);
+            var result = await _controller.GetByTestId(testId);
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOf<NotFoundObjectResult>(result);
