@@ -41,7 +41,7 @@ namespace TestCreator.Tests.Controllers
         }
 
         [Test]
-        public async Task Post_CorrectViewModelGivenUserDoesNotExist_ReturnsJsonViewModel()
+        public async Task Post_CorrectViewModelGivenUserDoesNotExist_ReturnsOkResult()
         {
             var viewModel = _fixture.Create<UserViewModel>();
 
@@ -58,7 +58,7 @@ namespace TestCreator.Tests.Controllers
         }
 
         [Test]
-        public async Task Post_CorrectViewModelGivenUserWithNameExists_ReturnsJsonViewModel()
+        public async Task Post_CorrectViewModelGivenUserWithNameExists_ReturnsBadRequestObjectResult()
         {
             var viewModel = _fixture.Create<UserViewModel>();
 
@@ -76,7 +76,7 @@ namespace TestCreator.Tests.Controllers
         }
 
         [Test]
-        public async Task Post_CorrectViewModelGivenUserWithEmailExists_ReturnsJsonViewModel()
+        public async Task Post_CorrectViewModelGivenUserWithEmailExists_ReturnsBadRequestObjectResult()
         {
             var viewModel = _fixture.Create<UserViewModel>();
 

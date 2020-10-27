@@ -1,9 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using AutoFixture;
 using AutoFixture.AutoMoq;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
+using TestCreator.Data.Commands;
 using TestCreator.Data.Queries;
 using TestCreator.Data.Queries.Results;
 using TestCreator.Tests.Helpers;
@@ -12,6 +16,7 @@ using TestCreator.WebApp.Converters.DTO;
 using TestCreator.WebApp.Converters.ViewModel;
 using TestCreator.WebApp.Data.Commands.Interfaces;
 using TestCreator.WebApp.Data.Queries.Interfaces;
+using TestCreator.WebApp.ViewModels;
 
 namespace TestCreator.Tests.Controllers
 {
@@ -69,135 +74,100 @@ namespace TestCreator.Tests.Controllers
             Assert.IsInstanceOf<NotFoundObjectResult>(result);
         }
 
-        //[Test]
-        //public void Put_CorrectViewModelGiven_ReturnsJsonViewModel()
-        //{
-        //    var viewModel = new TestViewModel
-        //    {
-        //        Id = 1,
-        //        Title = "title1"
-        //    };
+        [Test]
+        public async Task Put_CorrectViewModelGiven_ReturnsOkResult()
+        {
+            var viewModel = _fixture.Create<TestViewModel>();
 
-        //    var mockRepo = new Mock<ITestRepository>();
-        //    mockRepo.Setup(x => x.CreateTest(It.IsAny<TestViewModel>())).Returns(viewModel);
+            _commandDispatcherMock.Setup(x => x.DispatchAsync<UpdateTestCommand>(It.IsAny<UpdateTestCommand>()))
+                .Returns(Task.CompletedTask);
 
-        //    var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
-        //    {
-        //        new Claim(ClaimTypes.NameIdentifier, "name1")
-        //    }, "mock"));
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, "name1")
+            }, "mock"));
 
-        //    var controller = new TestController(mockRepo.Object, null)
-        //    {
-        //        ControllerContext = new ControllerContext
-        //        {
-        //            HttpContext = new DefaultHttpContext { User = user }
-        //        }
-        //    };
+            _controller.ControllerContext = new ControllerContext
+            {
+                HttpContext = new DefaultHttpContext {User = user}
+            };
 
-        //    var result = controller.Put(viewModel) as JsonResult;
+            var result = await _controller.Put(viewModel) as OkResult;
 
-        //    Assert.IsNotNull(result);
-        //    Assert.AreEqual(result.GetValueFromJsonResult<string>("Title"), viewModel.Title);
-        //    Assert.AreEqual(result.GetValueFromJsonResult<int>("Id"), viewModel.Id);
-        //}
+            Assert.IsNotNull(result);
+        }
 
-        //[Test]
-        //public void Put_InvalidViewModelGiven_ReturnsStatusCode500()
-        //{
-        //    var mockRepo = new Mock<ITestRepository>();
+        [Test]
+        public async Task Put_InvalidViewModelGiven_ReturnsStatusCode500()
+        {
+            var result = await _controller.Put(null) as StatusCodeResult;
 
-        //    var controller = new TestController(mockRepo.Object, null);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.StatusCode, 500);
+        }
 
-        //    var result = controller.Put(null) as StatusCodeResult;
+        [Test]
+        public async Task Post_CorrectViewModelGiven_ReturnsOkResult()
+        {
+            var viewModel = _fixture.Create<TestViewModel>();
 
-        //    Assert.IsNotNull(result);
-        //    Assert.AreEqual(result.StatusCode, 500);
-        //}
+            _commandDispatcherMock.Setup(x => x.DispatchAsync<AddTestCommand>(It.IsAny<AddTestCommand>()))
+                .Returns(Task.CompletedTask);
 
-        //[Test]
-        //public void Post_CorrectViewModelGiven_ReturnsJsonViewModel()
-        //{
-        //    var viewModel = new TestViewModel
-        //    {
-        //        Id = 1,
-        //        Title = "title1"
-        //    };
+            var result = await _controller.Post(viewModel) as OkResult;
 
-        //    var mockRepo = new Mock<ITestRepository>();
-        //    mockRepo.Setup(x => x.UpdateTest(It.IsAny<TestViewModel>())).Returns(viewModel);
+            Assert.IsNotNull(result);
+        }
 
-        //    var controller =
-        //        new TestController(mockRepo.Object, null);
+        [Test]
+        public async Task Post_InvalidViewModelGiven_ReturnsStatusCode500()
+        {
+            var result = await _controller.Post(null) as StatusCodeResult;
 
-        //    var result = controller.Post(viewModel) as JsonResult;
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.StatusCode, 500);
+        }
 
-        //    Assert.IsNotNull(result);
-        //    Assert.AreEqual(result.GetValueFromJsonResult<string>("Title"), viewModel.Title);
-        //    Assert.AreEqual(result.GetValueFromJsonResult<int>("Id"), viewModel.Id);
-        //}
+        [Test]
+        public async Task Post_CorrectTestAttemptViewModelErrorDuringProcessing_ReturnsObjectResult()
+        {
+            var viewModel = _fixture.Create<TestViewModel>();
 
-        //[Test]
-        //public void Post_InvalidViewModelGiven_ReturnsStatusCode500()
-        //{
-        //    var mockRepo = new Mock<ITestRepository>();
+            _commandDispatcherMock.Setup(x => x.DispatchAsync<AddTestCommand>(It.IsAny<AddTestCommand>()))
+                .Returns(Task.FromException(new InvalidOperationException()));
 
-        //    var controller = new TestController(mockRepo.Object, null);
+            var result = await _controller.Post(viewModel) as ObjectResult;
 
-        //    var result = controller.Post(null) as StatusCodeResult;
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.StatusCode, 500);
+        }
 
-        //    Assert.IsNotNull(result);
-        //    Assert.AreEqual(result.StatusCode, 500);
-        //}
+        [Test]
+        public async Task Delete_CorrectViewModelGiven_ReturnsNoContentResult()
+        {
+            var id = _fixture.Create<int>();
 
-        //[Test]
-        //public void Post_CorrectTestAttemptViewModelErrorDuringProcessing_ReturnsNotFound()
-        //{
-        //    var viewModel = new TestViewModel
-        //    {
-        //        Id = 1,
-        //        Title = "title1"
-        //    };
+            _commandDispatcherMock.Setup(x => x.DispatchAsync<RemoveTestCommand>(It.IsAny<RemoveTestCommand>()))
+                .Returns(Task.CompletedTask);
 
-        //    var mockRepo = new Mock<ITestRepository>();
-        //    mockRepo.Setup(x => x.UpdateTest(It.IsAny<TestViewModel>())).Returns<TestViewModel>(null);
+            var result = await _controller.Delete(id);
 
-        //    var controller = new TestController(mockRepo.Object, null);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOf<NoContentResult>(result);
+        }
 
-        //    var result = controller.Post(viewModel);
+        [Test]
+        public async Task Delete_CorrectTestAttemptViewModelErrorDuringProcessing_ReturnsNotFound()
+        {
+            var id = _fixture.Create<int>();
 
-        //    Assert.IsNotNull(result);
-        //    Assert.IsInstanceOf<NotFoundObjectResult>(result);
-        //}
+            _commandDispatcherMock.Setup(x => x.DispatchAsync<RemoveTestCommand>(It.IsAny<RemoveTestCommand>()))
+                .Returns(Task.FromException(new InvalidOperationException()));
 
-        //[Test]
-        //public void Delete_CorrectViewModelGiven_ReturnsJsonViewModel()
-        //{
-        //    int id = 1;
+            var result = await _controller.Delete(id) as ObjectResult;
 
-        //    var mockRepo = new Mock<ITestRepository>();
-        //    mockRepo.Setup(x => x.DeleteTest(It.IsAny<int>())).Returns(true);
-
-        //    var controller =
-        //        new TestController(mockRepo.Object, null);
-
-        //    var result = controller.Delete(id);
-
-        //    Assert.IsNotNull(result);
-        //    Assert.IsInstanceOf<NoContentResult>(result);
-        //}
-
-        //[Test]
-        //public void Delete_CorrectTestAttemptViewModelErrorDuringProcessing_ReturnsNotFound()
-        //{
-        //    var mockRepo = new Mock<ITestRepository>();
-        //    mockRepo.Setup(x => x.DeleteTest(1)).Returns(false);
-
-        //    var controller = new TestController(mockRepo.Object, null);
-
-        //    var result = controller.Delete(2);
-
-        //    Assert.IsNotNull(result);
-        //    Assert.IsInstanceOf<NotFoundObjectResult>(result);
-        //}
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.StatusCode, 500);
+        }
     }
 }

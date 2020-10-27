@@ -86,7 +86,7 @@ namespace TestCreator.Tests.Controllers
         }
 
         [Test]
-        public void Result_CorrectTestAttemptViewModel_ReturnsJsonViewModel()
+        public void Post_CorrectTestAttemptViewModel_ReturnsJsonViewModel()
         {
             var viewModel = new TestAttemptViewModel()
             {
@@ -111,7 +111,7 @@ namespace TestCreator.Tests.Controllers
 
             var controller = new TestAttemptController(null, mockService.Object, null);
 
-            var result = controller.GetResult(viewModel) as JsonResult;
+            var result = controller.Post(viewModel) as JsonResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual(result.GetValueFromJsonResult<string>("Title"), returnedViewModel.Title);
@@ -121,16 +121,16 @@ namespace TestCreator.Tests.Controllers
         }
 
         [Test]
-        public void Result_NullTestAttemptViewModel_ReturnsNotFound()
+        public void Post_NullTestAttemptViewModel_ReturnsNotFound()
         {
-            var result = _controller.GetResult(null);
+            var result = _controller.Post(null);
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOf<NotFoundObjectResult>(result);
         }
 
         [Test]
-        public void Result_CorrectTestAttemptViewModelErrorDuringCalculating_ReturnsNotFound()
+        public void Post_CorrectTestAttemptViewModelErrorDuringCalculating_ReturnsNotFound()
         {
             var viewModel = new TestAttemptViewModel()
             {
@@ -147,7 +147,7 @@ namespace TestCreator.Tests.Controllers
 
             var controller = new TestAttemptController(null, mockService.Object, null);
 
-            var result = controller.GetResult(viewModel) as StatusCodeResult;
+            var result = controller.Post(viewModel) as StatusCodeResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual(result.StatusCode, 500);

@@ -130,7 +130,7 @@ namespace TestCreator.Tests.Controllers
         }
 
         [Test]
-        public async Task Put_CorrectViewModelGiven_ReturnsJsonViewModel()
+        public async Task Put_CorrectViewModelGiven_ReturnsOkResult()
         {
             var viewModel = _fixture.Create<AnswerViewModel>();
 
@@ -166,7 +166,7 @@ namespace TestCreator.Tests.Controllers
         }
 
         [Test]
-        public async Task Delete_CorrectViewModelGiven_ReturnsJsonViewModel()
+        public async Task Delete_CorrectViewModelGiven_ReturnsOkResult()
         {
             var id = _fixture.Create<int>();
 
