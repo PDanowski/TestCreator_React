@@ -57,8 +57,8 @@ namespace TestCreator.WebApp.Controllers
         /// </summary>
         /// <param name="viewModel">TestAttemptViewModel with data</param>
         /// <returns>Calculate result and return TestAttemptResultViewModel for given {viewModel}</returns>
-        [HttpPost("{id}")]
-        public IActionResult Post(TestAttemptViewModel viewModel)
+        [HttpPost]
+        public IActionResult CalculateResult(TestAttemptViewModel viewModel)
         {
             if (viewModel == null)
             {

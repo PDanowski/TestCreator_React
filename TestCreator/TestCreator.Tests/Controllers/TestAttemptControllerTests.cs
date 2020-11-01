@@ -13,7 +13,6 @@ using TestCreator.WebApp.Controllers;
 using TestCreator.WebApp.Converters.ViewModel;
 using TestCreator.WebApp.Data.Queries.Interfaces;
 using TestCreator.WebApp.Mappers;
-using TestCreator.WebApp.Services;
 using TestCreator.WebApp.Services.Interfaces;
 using TestCreator.WebApp.ViewModels;
 
@@ -24,6 +23,7 @@ namespace TestCreator.Tests.Controllers
     {
         private TestAttemptController _controller;
         private Mock<IQueryDispatcher> _queryDispatcherMock;
+        private Mock<ITestResultCalculationService> _testResultCalculationServiceMock;
         private IFixture _fixture;
 
         [OneTimeSetUp]
@@ -31,9 +31,10 @@ namespace TestCreator.Tests.Controllers
         {
             _fixture = new Fixture().Customize(new AutoMoqCustomization());
             _queryDispatcherMock = _fixture.Freeze<Mock<IQueryDispatcher>>();
+            _testResultCalculationServiceMock = new Mock<ITestResultCalculationService>();
             _controller = new TestAttemptController(
-                new TestAttemptViewModelMapper(new AnswerViewModelConverter(), new QuestionViewModelConverter()), 
-                new TestResultCalculationService(), 
+                new TestAttemptViewModelMapper(new AnswerViewModelConverter(), new QuestionViewModelConverter()),
+                _testResultCalculationServiceMock.Object, 
                 _queryDispatcherMock.Object);
         }
 
@@ -44,15 +45,12 @@ namespace TestCreator.Tests.Controllers
         }
 
         [Test]
-        public async Task Start_CorrectIdGiven_ReturnsJsonViewModel()
+        public async Task Get_WhenCorrectIdGiven_ShouldReturnJsonViewModel()
         {
+            //Arrange
             var queryResult = new GetTestAttemptQueryResult
             {
-                Test = new Test
-                {
-                    Id = 1,
-                    Title = "title1"
-                },
+                Test = _fixture.Create<Test>(),
                 Answers = new List<Answer>(),
                 Questions = new List<Question>()
             };
@@ -61,8 +59,10 @@ namespace TestCreator.Tests.Controllers
                     x.DispatchAsync<GetTestAttemptQuery, GetTestAttemptQueryResult>(It.IsAny<GetTestAttemptQuery>()))
                 .Returns(Task.FromResult(queryResult));
 
+            //Act
             var result = await _controller.Get(1) as JsonResult;
 
+            //Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(result.GetValueFromJsonResult<string>("Title"), queryResult.Test.Title);
             Assert.AreEqual(result.GetValueFromJsonResult<int>("TestId"), queryResult.Test.Id);
@@ -70,8 +70,9 @@ namespace TestCreator.Tests.Controllers
         }
 
         [Test]
-        public async Task Start_InvalidIdGiven_ReturnsNotFound()
+        public async Task Get_WhenInvalidIdGiven_ShouldReturnNotFound()
         {
+            //Arrange
             _queryDispatcherMock.Setup(x =>
                     x.DispatchAsync<GetTestAttemptQuery, GetTestAttemptQueryResult>(It.IsAny<GetTestAttemptQuery>()))
                 .Returns(Task.FromResult(new GetTestAttemptQueryResult
@@ -79,24 +80,19 @@ namespace TestCreator.Tests.Controllers
                     Test = null
                 }));
 
+            //Act
             var result = await _controller.Get(1);
 
+            //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOf<NotFoundObjectResult>(result);
         }
 
         [Test]
-        public void Post_CorrectTestAttemptViewModel_ReturnsJsonViewModel()
+        public void CalculateResult_WhenCorrectTestAttemptViewModel_ShouldReturnsJsonViewModel()
         {
-            var viewModel = new TestAttemptViewModel()
-            {
-                TestId = 1,
-                Title = "title1",
-                TestAttemptEntries = new List<TestAttemptEntryViewModel>
-                {
-                    new TestAttemptEntryViewModel()
-                }
-            };
+            //Arrange
+            var viewModel = _fixture.Create<TestAttemptViewModel>();
 
             var returnedViewModel = new TestAttemptResultViewModel()
             {
@@ -106,13 +102,12 @@ namespace TestCreator.Tests.Controllers
                 MaximalPossibleScore = 15
             };
 
-            var mockService = new Mock<ITestResultCalculationService>();
-            mockService.Setup(x => x.CalculateResult(It.IsAny<TestAttemptViewModel>())).Returns(returnedViewModel);
+            _testResultCalculationServiceMock.Setup(x => x.CalculateResult(It.IsAny<TestAttemptViewModel>())).Returns(returnedViewModel);
 
-            var controller = new TestAttemptController(null, mockService.Object, null);
+            //Act
+            var result = _controller.CalculateResult(viewModel) as JsonResult;
 
-            var result = controller.Post(viewModel) as JsonResult;
-
+            //Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(result.GetValueFromJsonResult<string>("Title"), returnedViewModel.Title);
             Assert.AreEqual(result.GetValueFromJsonResult<int>("TestId"), returnedViewModel.TestId);
@@ -121,34 +116,28 @@ namespace TestCreator.Tests.Controllers
         }
 
         [Test]
-        public void Post_NullTestAttemptViewModel_ReturnsNotFound()
+        public void CalculateResult_WhenNullTestAttemptViewModel_ShouldReturnNotFound()
         {
-            var result = _controller.Post(null);
+            //Act
+            var result = _controller.CalculateResult(null);
 
+            //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOf<NotFoundObjectResult>(result);
         }
 
         [Test]
-        public void Post_CorrectTestAttemptViewModelErrorDuringCalculating_ReturnsNotFound()
+        public void CalculateResult_WhenCorrectTestAttemptViewModelIsGivenButErrorDuringCalculating_ShouldReturnsNotFound()
         {
-            var viewModel = new TestAttemptViewModel()
-            {
-                TestId = 1,
-                Title = "title1",
-                TestAttemptEntries = new List<TestAttemptEntryViewModel>
-                {
-                    new TestAttemptEntryViewModel()
-                }
-            };
+            //Arrange
+            var viewModel = _fixture.Create<TestAttemptViewModel>();
 
-            var mockService = new Mock<ITestResultCalculationService>();
-            mockService.Setup(x => x.CalculateResult(It.IsAny<TestAttemptViewModel>())).Returns<TestAttemptResultViewModel>(null);
+            _testResultCalculationServiceMock.Setup(x => x.CalculateResult(It.IsAny<TestAttemptViewModel>())).Returns<TestAttemptResultViewModel>(null);
 
-            var controller = new TestAttemptController(null, mockService.Object, null);
+            //Act
+            var result = _controller.CalculateResult(viewModel) as StatusCodeResult;
 
-            var result = controller.Post(viewModel) as StatusCodeResult;
-
+            //Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(result.StatusCode, 500);
         }
