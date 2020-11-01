@@ -18,14 +18,12 @@ namespace TestCreator.WebApp.Controllers
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
 
-
         public TokenController(ITokenService tokenService, IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher)
         {
             _tokenService = tokenService;
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
         }
-
 
         [HttpPost("Auth")]
         public async Task<IActionResult> Auth([FromBody] TokenRequestViewModel viewModel)
