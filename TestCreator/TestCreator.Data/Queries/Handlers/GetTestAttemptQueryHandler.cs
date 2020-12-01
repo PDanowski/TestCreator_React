@@ -26,7 +26,7 @@ namespace TestCreator.Data.Queries.Handlers
 
         protected override GetTestAttemptQueryResult Handle(GetTestAttemptQuery request)
         {
-            var test = DbContext.Tests.Where(t => t.Id.Equals(request.Id))
+            var test = DbContext.Tests.AsNoTracking().Where(t => t.Id.Equals(request.Id))
                 .Include(t => t.Questions)
                 .ThenInclude(q => q.Answers)
                 .FirstOrDefault();
@@ -41,7 +41,7 @@ namespace TestCreator.Data.Queries.Handlers
 
         protected override async Task<GetTestAttemptQueryResult> HandleAsync(GetTestAttemptQuery request)
         {
-            var test = await DbContext.Tests.Where(t => t.Id.Equals(request.Id))
+            var test = await DbContext.Tests.AsNoTracking().Where(t => t.Id.Equals(request.Id))
                 .Include(t => t.Questions)
                 .ThenInclude(q => q.Answers)
                 .FirstOrDefaultAsync();

@@ -19,7 +19,7 @@ namespace TestCreator.Data.Queries.Handlers
 
         protected override GetTokenQueryResult Handle(GetTokenQuery request)
         {
-            var token = DbContext.Tokens.FirstOrDefault(t => t.ClientId == request.ClientId && t.Value == request.RefreshToken);
+            var token = DbContext.Tokens.AsNoTracking().FirstOrDefault(t => t.ClientId == request.ClientId && t.Value == request.RefreshToken);
 
             return new GetTokenQueryResult
             {
@@ -29,7 +29,7 @@ namespace TestCreator.Data.Queries.Handlers
 
         protected override async Task<GetTokenQueryResult> HandleAsync(GetTokenQuery request)
         {
-            var token = await DbContext.Tokens
+            var token = await DbContext.Tokens.AsNoTracking()
                 .FirstOrDefaultAsync(t => t.ClientId == request.ClientId && t.Value == request.RefreshToken);
 
             return new GetTokenQueryResult

@@ -1,6 +1,6 @@
 ﻿using Autofac;
-using TestCreator.Data.Converters.DTO.Interfaces;
 using TestCreator.WebApp.Converters.DTO;
+using TestCreator.WebApp.Converters.DTO.Interfaces;
 using TestCreator.WebApp.Converters.ViewModel;
 using TestCreator.WebApp.Converters.ViewModel.Interfaces;
 using TestCreator.WebApp.Mappers;
@@ -30,6 +30,9 @@ namespace TestCreator.WebApp.Bootstrappers.Modules
 
             builder.RegisterType<ApplicationUserDtoConverter>().As<IApplicationUserDtoConverter>();
             builder.RegisterType<AnswerDtoConverter>().As<IAnswerDtoConverter>();
+            builder.RegisterType<QuestionDtoConverter>().As<IQuestionDtoConverter>();
+            builder.RegisterType<ResultDtoConverter>().As<IResultDtoConverter>();
+            builder.RegisterType<TestDtoConverter>().As<ITestDtoConverter>();
 
             #endregion
 

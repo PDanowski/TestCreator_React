@@ -19,7 +19,7 @@ namespace TestCreator.Data.Queries.Handlers
 
         protected override GetResultsQueryResult Handle(GetResultsQuery request)
         {
-            var results = DbContext.Results.Where(t => t.TestId.Equals(request.TestId));
+            var results = DbContext.Results.AsNoTracking().Where(t => t.TestId.Equals(request.TestId));
 
             return new GetResultsQueryResult
             {
@@ -29,7 +29,7 @@ namespace TestCreator.Data.Queries.Handlers
 
         protected override async Task<GetResultsQueryResult> HandleAsync(GetResultsQuery request)
         {
-            var results = await DbContext.Results.Where(t => t.TestId.Equals(request.TestId)).ToListAsync();
+            var results = await DbContext.Results.AsNoTracking().Where(t => t.TestId.Equals(request.TestId)).ToListAsync();
 
             return new GetResultsQueryResult
             {

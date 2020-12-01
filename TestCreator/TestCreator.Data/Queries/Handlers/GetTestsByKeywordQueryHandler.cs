@@ -18,7 +18,7 @@ namespace TestCreator.Data.Queries.Handlers
 
         protected override GetTestsQueryResult Handle(GetTestsByKeywordQuery request)
         {
-            var tests = DbContext.Tests.Where(t => t.Title.Contains(request.Keyword))
+            var tests = DbContext.Tests.AsNoTracking().Where(t => t.Title.Contains(request.Keyword))
                 .Take(request.Number)
                 .ToList();
 
@@ -30,7 +30,7 @@ namespace TestCreator.Data.Queries.Handlers
 
         protected override async Task<GetTestsQueryResult> HandleAsync(GetTestsByKeywordQuery request)
         {
-            var tests = await DbContext.Tests.Where(t => t.Title.Contains(request.Keyword))
+            var tests = await DbContext.Tests.AsNoTracking().Where(t => t.Title.Contains(request.Keyword))
                 .Take(request.Number)
                 .ToListAsync();
 

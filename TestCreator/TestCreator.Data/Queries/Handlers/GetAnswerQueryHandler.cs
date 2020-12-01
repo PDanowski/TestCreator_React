@@ -19,7 +19,7 @@ namespace TestCreator.Data.Queries.Handlers
 
         protected override GetAnswerQueryResult Handle(GetAnswerQuery request)
         {
-            var answer = DbContext.Answers.FirstOrDefault(t => t.Id.Equals(request.Id));
+            var answer = DbContext.Answers.AsNoTracking().FirstOrDefault(t => t.Id.Equals(request.Id));
 
             return new GetAnswerQueryResult
             {
@@ -29,7 +29,7 @@ namespace TestCreator.Data.Queries.Handlers
 
         protected override async Task<GetAnswerQueryResult> HandleAsync(GetAnswerQuery request)
         {
-            var answer = await DbContext.Answers.FirstOrDefaultAsync(t => t.Id.Equals(request.Id));
+            var answer = await DbContext.Answers.AsNoTracking().FirstOrDefaultAsync(t => t.Id.Equals(request.Id));
 
             return new GetAnswerQueryResult
             {

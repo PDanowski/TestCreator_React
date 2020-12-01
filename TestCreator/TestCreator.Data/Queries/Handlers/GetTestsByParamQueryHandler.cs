@@ -27,13 +27,13 @@ namespace TestCreator.Data.Queries.Handlers
             switch (request.Param)
             {
                 case TestsOrder.ByTitle:
-                    tests = DbContext.Tests.OrderBy(t => t.Title);
+                    tests = DbContext.Tests.AsNoTracking().OrderBy(t => t.Title);
                     break;
                 case TestsOrder.Latest:
-                    tests = DbContext.Tests.OrderByDescending(t => t.CreationDate);
+                    tests = DbContext.Tests.AsNoTracking().OrderByDescending(t => t.CreationDate);
                     break;
                 case TestsOrder.Random:
-                    tests = DbContext.Tests.OrderBy(t => Guid.NewGuid());
+                    tests = DbContext.Tests.AsNoTracking().OrderBy(t => Guid.NewGuid());
                     break;
             }
 
@@ -50,13 +50,13 @@ namespace TestCreator.Data.Queries.Handlers
             switch (request.Param)
             {
                 case TestsOrder.ByTitle:
-                    tests = DbContext.Tests.OrderBy(t => t.Title);
+                    tests = DbContext.Tests.AsNoTracking().OrderBy(t => t.Title);
                     break;
                 case TestsOrder.Latest:
-                    tests = DbContext.Tests.OrderByDescending(t => t.CreationDate);
+                    tests = DbContext.Tests.AsNoTracking().OrderByDescending(t => t.CreationDate);
                     break;
                 case TestsOrder.Random:
-                    tests = DbContext.Tests.OrderBy(t => Guid.NewGuid());
+                    tests = DbContext.Tests.AsNoTracking().OrderBy(t => Guid.NewGuid());
                     break;
             }
 
