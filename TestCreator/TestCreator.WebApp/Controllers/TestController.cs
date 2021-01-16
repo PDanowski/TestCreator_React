@@ -6,6 +6,7 @@ using TestCreator.Data.Commands;
 using TestCreator.Data.Queries;
 using TestCreator.Data.Queries.Consts;
 using TestCreator.Data.Queries.Results;
+using TestCreator.WebApp.Controllers.Attributes;
 using TestCreator.WebApp.Controllers.Base;
 using TestCreator.WebApp.Converters.DTO.Interfaces;
 using TestCreator.WebApp.Converters.ViewModel.Interfaces;
@@ -22,6 +23,8 @@ namespace TestCreator.WebApp.Controllers
         private readonly ICommandDispatcher _commandDispatcher;
         private readonly ITestViewModelConverter _converter;
         private readonly ITestDtoConverter _dtoConverter;
+
+        private int _defaultQuerySize = 10;
 
 
         public TestController(IQueryDispatcher queryDispatcher, 
@@ -40,7 +43,7 @@ namespace TestCreator.WebApp.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Single TestViewModel with given {id}</returns>
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> Get(int id)
         {
             var queryResult = await _queryDispatcher.DispatchAsync<GetTestQuery, GetTestQueryResult>(new GetTestQuery
@@ -65,16 +68,19 @@ namespace TestCreator.WebApp.Controllers
         /// <summary>
         /// GET api/test
         /// </summary>
-        /// <param name="num"></param>
+        /// <param name="size"></param>
         /// <param name="sorting">0 - random, 1 - latest, 2 - by title</param>
         /// <returns>{num} TestViewModel, sorted by param: {sorting}</returns>
         [HttpGet]
-        public async Task<IActionResult> GetBySorting([FromQuery]int sorting = 0, [FromQuery]int num = 10)
+        public async Task<IActionResult> GetBySorting([FromQuery]int sorting, [FromQuery]int? size = 10)
         {
             TestsOrder order;
 
             switch (sorting)
             {
+                case 0:
+                    order = TestsOrder.Random;
+                    break;
                 case 1:
                     order = TestsOrder.Latest;
                     break;
@@ -92,7 +98,7 @@ namespace TestCreator.WebApp.Controllers
                 await _queryDispatcher.DispatchAsync<GetTestsByParamQuery, GetTestsQueryResult>(new GetTestsByParamQuery
                 {
                     Param = order,
-                    Number = num
+                    Number = size ?? _defaultQuerySize
                 });
 
 
@@ -104,16 +110,17 @@ namespace TestCreator.WebApp.Controllers
         /// GET: api/test
         /// </summary>
         /// <param name="keyword"></param>
-        /// <param name="num"></param>
+        /// <param name="size"></param>
         /// <returns>{num} TestViewModels searched by keyword</returns>
         [HttpGet]
-        public async Task<IActionResult> GetByKeyword([FromQuery]string keyword, [FromQuery]int num = 10)
+        [ExactQueryParam("keyword")]
+        public async Task<IActionResult> GetByKeyword([FromQuery]string keyword)
         {
             GetTestsQueryResult queryResult =
                 await _queryDispatcher.DispatchAsync<GetTestsByKeywordQuery, GetTestsQueryResult>(new GetTestsByKeywordQuery
                 {
                     Keyword = keyword,
-                    Number = num
+                    Number = _defaultQuerySize
                 });
 
             return new JsonResult(_converter.Convert(queryResult.Tests), JsonSettings);

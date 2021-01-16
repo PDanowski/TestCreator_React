@@ -1,0 +1,90 @@
+﻿.card {
+    margin-bottom: 15px;
+    margin-top: 10px;
+
+    .card-header {
+        color: #fefefe;
+
+        .form-inline .form-group {
+            margin: 3px 3px 3px 3px;
+
+            h4 {
+                color: #3f51b5
+            }
+        }
+
+        .faicon {
+            float: right;
+            font-size: 41px;
+            color: #d6d6d6;
+        }
+    }
+
+    .card-body {
+        padding: 0;
+
+        .list-group {
+            margin: 0;
+
+            .list-group-item {
+                padding: 6px;
+                overflow: auto;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #dae9f5;
+
+                    &:before {
+                        display: inline-block;
+                        font-family: FontAwesome;
+                        font-weight: 900;
+                        content: "\f00c";
+                        float: right;
+                        font-size: 30px;
+                        margin: 4px 5px 0 0;
+                        color: #60a777;
+                    }
+                }
+
+                img {
+                    display: block;
+                    float: left;
+                    width: 50px;
+                    height: 50px;
+                    background-color: #ffffff;
+                    border: 1px solid #707d8c;
+                    padding: 2px;
+                    margin: 0 6px 0 0;
+                }
+
+                span {
+                    margin-top: 50px;
+                }
+            }
+        }
+    }
+
+    &.latest {
+        border-color: #DBDBDB;
+
+        .card-header {
+            background-color: #DBDBDB;
+        }
+    }
+
+    &.random {
+        border-color: #EFEFEF;
+
+        .card-header {
+            background-color: #EFEFEF;
+        }
+    }
+
+    &.byTitle {
+        border-color: #E8E8E8;
+
+        .card-header {
+            background-color: #E8E8E8;
+        }
+    }
+}

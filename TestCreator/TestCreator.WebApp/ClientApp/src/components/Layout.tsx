@@ -1,12 +1,15 @@
 import * as React from 'react';
-import { Container } from 'reactstrap';
-import NavMenu from './NavMenu';
+import { Box  } from '@material-ui/core';
+import NavMenu from './nav-menu/NavMenu';
+import './Layout.css';
 
 export default (props: { children?: React.ReactNode }) => (
-    <React.Fragment>
-        <NavMenu/>
-        <Container>
-            {props.children}
-        </Container>
-    </React.Fragment>
+    <div>
+        <React.Fragment>
+            <NavMenu />
+            <Box>
+                {props.children}
+            </Box >
+        </React.Fragment>
+    </div>
 );
