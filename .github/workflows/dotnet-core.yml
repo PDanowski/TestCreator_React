@@ -17,11 +17,11 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.301
+    - name: Clean
+      run: dotnet clean TestCreator\TestCreator.sln --configuration Release && dotnet nuget locals all --clear
     - name: Install dependencies
       run: dotnet restore
       working-directory: TestCreator
-    - name: Clean
-      run: dotnet clean TestCreator\TestCreator.sln --configuration Release && dotnet nuget locals all --clear
     - name: Build
       run: dotnet build TestCreator\TestCreator.sln --configuration Release --no-restore
     - name: Test
