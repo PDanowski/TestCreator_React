@@ -8,8 +8,8 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import InputIcon from '@material-ui/icons/Input';
 import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom'
+import { Link, useHistory, useLocation, Redirect  } from 'react-router-dom';
+import { isLoggedIn, logout } from '../../services/AuthService';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -73,14 +73,25 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
+
 export default function NavMenu() {
     var location = useLocation();
     var route = location.pathname.substring(1, location.pathname.length);
 
     const classes = useStyles();
-    var [value, setValue] = React.useState(0);
+    var [value, setValue] = React.useState('');
+    const isLogged = isLoggedIn();
+    const history = useHistory();
 
     value = route;
+
+    function handleLogout(){
+        if (logout()) {
+            history.go(0);
+            //history.push('/');
+        }
+        return false;
+    }
 
     return (
         <div className={classes.root}>
@@ -106,9 +117,9 @@ export default function NavMenu() {
                                                 value="about"/>
                         <BottomNavigationAction label="Create test" icon={<AddIcon />} />
                     </BottomNavigation>
-                    <Button className={classes.button} color="inherit" startIcon={<InputIcon />}>Login</Button>
-                    <Button className={classes.button} color="inherit" startIcon={<AssignmentIndIcon />}>Register</Button>
-                    <Button className={classes.button} color="inherit" startIcon={<ExitToAppIcon />}>Logout</Button>
+                    {!isLogged ? <Button className={classes.button} color="inherit" startIcon={<InputIcon />} component={Link} to="/login">Login</Button> : null}
+                    {!isLogged ? <Button className={classes.button} color="inherit" startIcon={<AssignmentIndIcon />}>Register</Button> : null}
+                    {isLogged ? <Button className={classes.button} color="inherit" startIcon={<ExitToAppIcon />} onClick={() => handleLogout()}>Logout</Button> : null}
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />

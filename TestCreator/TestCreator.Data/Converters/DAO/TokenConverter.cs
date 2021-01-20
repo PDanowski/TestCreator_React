@@ -10,7 +10,8 @@ namespace TestCreator.Data.Converters.DAO
 
         public TokenConverter()
         {
-            var mapperConfig = new MapperConfiguration(cfg => { cfg.CreateMap<Models.DTO.Token, Token>(); });
+            var mapperConfig = new MapperConfiguration(cfg => { cfg.CreateMap<Models.DTO.Token, Token>()
+                .ForMember(x => x.User, opt => opt.Ignore()); });
 
             _mapper = mapperConfig.CreateMapper();
             _mapper.ConfigurationProvider.AssertConfigurationIsValid();

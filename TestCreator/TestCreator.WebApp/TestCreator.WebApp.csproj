@@ -43,12 +43,17 @@
     <None Remove="ClientApp\src\actions\TestListActions.tsx" />
     <None Remove="ClientApp\src\components\about\about.tsx" />
     <None Remove="ClientApp\src\components\home\Home.tsx" />
+    <None Remove="ClientApp\src\components\login\Login.tsx" />
     <None Remove="ClientApp\src\components\test\TestList.tsx" />
     <None Remove="ClientApp\src\interfaces\Test.tsx" />
+    <None Remove="ClientApp\src\interfaces\TokenResponse.tsx" />
     <None Remove="ClientApp\src\reducers\ReducerTestList.tsx" />
+    <None Remove="ClientApp\src\services\AuthInterceptor.tsx" />
+    <None Remove="ClientApp\src\services\AuthService.tsx" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\src\components\register\" />
     <Folder Include="Helpers\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
@@ -65,9 +70,13 @@
     <TypeScriptCompile Include="ClientApp\src\actions\TestListActions.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\about\About.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\home\Home.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\components\login\Login.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\test\TestList.tsx" />
     <TypeScriptCompile Include="ClientApp\src\interfaces\Test.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\interfaces\TokenResponse.tsx" />
     <TypeScriptCompile Include="ClientApp\src\reducers\ReducerTestList.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\services\AuthInterceptor.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\services\AuthService.tsx" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

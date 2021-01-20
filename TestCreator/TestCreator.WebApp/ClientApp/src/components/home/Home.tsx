@@ -1,7 +1,7 @@
 ﻿import * as React from 'react';
 import TestList from '../test/TestList';
 
-class Home extends React.PureComponent<any> {
+class Home extends React.PureComponent {
     public render() {
         return (
             <React.Fragment>

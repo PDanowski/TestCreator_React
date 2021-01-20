@@ -10,7 +10,11 @@ namespace TestCreator.Data.Converters.DTO
 
         public ApplicationUserDtoConverter()
         {
-            var mapperConfig = new MapperConfiguration(cfg => { cfg.CreateMap<Models.DAO.ApplicationUser, ApplicationUser>(); });
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Models.DAO.ApplicationUser, ApplicationUser>()
+                    .ForMember(x => x.Password, opt => opt.MapFrom(y => y.PasswordHash));
+            });
 
             _mapper = mapperConfig.CreateMapper();
             _mapper.ConfigurationProvider.AssertConfigurationIsValid();

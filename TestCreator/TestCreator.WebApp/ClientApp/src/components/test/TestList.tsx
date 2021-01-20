@@ -152,8 +152,6 @@ class TestList extends React.Component<TestListProps, TestListComponentState>{
     }
 }
 
-
-
 //function mapDispatchToProps(dispatch: any) {
 //    return bindActionCreators({
 //        getTestList: getTestList,
@@ -165,7 +163,6 @@ class TestList extends React.Component<TestListProps, TestListComponentState>{
 //        testList: state.testList
 //    };
 //}
-
 
 const mapStateToProps = (state: ApplicationState) => ({
     testList: state.testList
