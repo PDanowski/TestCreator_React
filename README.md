@@ -4,12 +4,22 @@ Test creator web app (ASP.NET Core 3.1 and React)
 
 Used technologies and tools:
 
+Back-end
 - ASP.NET Core 3.1
-- React
-- EntityFramework Core 2.2
+- EntityFramework Core 3.1
+- NUnit
 - AutoMapper
 - Autofac
-- NUnit
 - FluentAssertions
 - Moq
 - AutoFixture
+
+Front-end
+- react 16.11
+- redux 7.1
+- redux-form
+- axios
+- MaterialUI 
+- Fortawesome Icons
+
+
