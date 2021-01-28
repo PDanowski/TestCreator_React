@@ -1,5 +1,4 @@
 import axios from "axios";
-const API_URL = 'https://localhost:44361/';
 const TEST_LIST_URL = "api/test";
 export const GET_TEST_LIST = 'GET_TEST_LIST';
 export const testListActionCreators = {
@@ -18,9 +17,14 @@ export const testListActionCreators = {
                     numType = 2;
                     break;
             }
-            axios.get(API_URL + TEST_LIST_URL, { params: { sorting: numType } })
+            dispatch({ type: 'GET_TEST_LIST_PENDING', tests: [], listType: type });
+            axios.get(TEST_LIST_URL, { params: { sorting: numType } })
                 .then(data => {
-                dispatch({ name: 'GET_TEST_LIST_RECEIVE', tests: data.data, type: type });
+                dispatch({ type: 'GET_TEST_LIST_RECEIVED', tests: data.data, listType: type });
+            })
+                .catch(err => {
+                console.log(err);
+                dispatch({ type: 'GET_TEST_LIST_ERROR', tests: [], listType: type });
             });
         }
     }

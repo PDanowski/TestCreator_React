@@ -29,8 +29,14 @@ namespace TestCreator.Data.Commands.Handlers
             user.CreationDate = DateTime.Now;
             user.LastModificationDate = DateTime.Now;
 
-            var createResult = _userManager.CreateAsync(user).Result;
-            var addToRoleResult = _userManager.AddToRolesAsync(user, request.Roles).Result;
+            var createResult = _userManager.CreateAsync(user, request.User.Password).Result;
+
+            if (!createResult.Succeeded)
+            {
+                throw new Exception(createResult.ToString());
+            }
+
+            var result = _userManager.AddToRolesAsync(user, request.Roles).Result;
 
             user.EmailConfirmed = true;
             user.LockoutEnabled = false;
@@ -45,15 +51,21 @@ namespace TestCreator.Data.Commands.Handlers
             user.SecurityStamp = Guid.NewGuid().ToString();
             user.CreationDate = DateTime.Now;
             user.LastModificationDate = DateTime.Now;
+            user.Id = Guid.NewGuid().ToString();
 
-            await _userManager.CreateAsync(user);
+            var createResult = await _userManager.CreateAsync(user, request.User.Password);
+
+            if (!createResult.Succeeded)
+            {
+                throw new Exception(createResult.ToString());
+            }
 
             await _userManager.AddToRolesAsync(user, request.Roles);
 
             user.EmailConfirmed = true;
             user.LockoutEnabled = false;
 
-            DbContext.SaveChanges();
+            await DbContext.SaveChangesAsync();
         }
     }
 }

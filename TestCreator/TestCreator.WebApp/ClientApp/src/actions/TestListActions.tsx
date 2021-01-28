@@ -2,24 +2,29 @@
 import { Test } from "../interfaces/Test";
 import { AppThunkAction } from '../store/index';
 
-const API_URL = 'https://localhost:44361/';
 const TEST_LIST_URL = "api/test";
 
 export const GET_TEST_LIST = 'GET_TEST_LIST';
 
-interface RequestTestListAction {
-    name: 'GET_TEST_LIST_PENDING';
+interface PendingTestListAction {
+    type: 'GET_TEST_LIST_PENDING';
     tests: Test[];
-    type: string;
+    listType: string;
 }
 
-interface ReceiveTestListAction {
-    name: 'GET_TEST_LIST_RECEIVE';
+interface ReceivedTestListAction {
+    type: 'GET_TEST_LIST_RECEIVED';
     tests: Test[];
-    type: string;
+    listType: string;
 }
 
-export type TestListAction = RequestTestListAction | ReceiveTestListAction;
+interface ErrorTestListAction {
+    type: 'GET_TEST_LIST_ERROR';
+    tests: Test[];
+    listType: string;
+}
+
+export type TestListAction = PendingTestListAction | ReceivedTestListAction | ErrorTestListAction;
 
 export const testListActionCreators = {
     getTestList: (type: string): AppThunkAction<TestListAction> => (dispatch, getState) => {
@@ -41,9 +46,14 @@ export const testListActionCreators = {
                 break;
             }
 
-            axios.get<Test[]>(API_URL + TEST_LIST_URL, { params: { sorting: numType } })
+            dispatch({ type: 'GET_TEST_LIST_PENDING', tests: [], listType: type });
+            axios.get<Test[]>(TEST_LIST_URL, { params: { sorting: numType } })
                 .then(data => {
-                    dispatch({ name: 'GET_TEST_LIST_RECEIVE', tests: data.data, type: type });
+                    dispatch({ type: 'GET_TEST_LIST_RECEIVED', tests: data.data, listType: type });
+                })
+                .catch(err => {
+                    console.log(err);
+                    dispatch({ type: 'GET_TEST_LIST_ERROR', tests: [], listType: type });
                 });
         }
     }

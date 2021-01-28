@@ -4,10 +4,11 @@ import { bindActionCreators } from "redux"
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import SortIcon from '@material-ui/icons/Sort';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import './TestList.css';
 import { testListActionCreators } from "../../actions/TestListActions"
 import { Test } from "../../interfaces/Test"
-import { TestListState } from "../../reducers/ReducerTestList"
+import { TestListState } from "../../reducers/TestListReducer"
 import { ApplicationState } from '../../store';
 
 
@@ -72,7 +73,18 @@ class TestList extends React.Component<TestListProps, TestListComponentState>{
             return true;
         }
 
-        var newTestList = nextProps.testList?.testList[nextProps.type];
+        var newTestListState = nextProps.testList;
+        if (newTestListState === undefined) {
+            console.log('shouldComponentUpdate newTestList undefined');
+            return false;
+        }
+
+        if (newTestListState.isLoading !== this.props.testList?.isLoading) {
+            console.log('shouldComponentUpdate different length - update');
+            return true;
+        }
+
+        var newTestList = newTestListState.testList[nextProps.type];
         var oldTestList = this.props.testList?.testList[nextProps.type];
 
         if (newTestList === undefined) {
@@ -98,12 +110,15 @@ class TestList extends React.Component<TestListProps, TestListComponentState>{
 
     private renderTestList() {
         console.log('renderTestList start');
-        if (this.props.testList === undefined || this.props.testList.testList === undefined) {
+        if (this.props.testList === undefined || this.props.testList.testList === undefined || this.props.testList?.isLoading) {
             return (
-                <div>Loading...</div>
+                <div>
+                    Loading...<br/>
+                    <CircularProgress />
+                </div>
+                
             );
         }
-
         var key = this.state.type;
         var list = this.props.testList.testList[key];
 
@@ -112,7 +127,10 @@ class TestList extends React.Component<TestListProps, TestListComponentState>{
 
         if (list === undefined) {
             return (
-                <div>Loading...</div>
+                <div>
+                    Loading...<br/>
+                    <CircularProgress />
+                </div>
             );
         }
 
@@ -145,7 +163,7 @@ class TestList extends React.Component<TestListProps, TestListComponentState>{
                         <ul className="list-group">
                             {this.renderTestList()}
                         </ul>
-                  </div>
+                    </div>
                 </div>
             </React.Fragment>
         );

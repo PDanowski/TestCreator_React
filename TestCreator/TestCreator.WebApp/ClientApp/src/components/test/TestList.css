@@ -1,6 +1,5 @@
 .card {
   margin-bottom: 15px;
-  margin-top: 10px;
 }
 .card .card-header {
   color: #fefefe;
@@ -9,7 +8,7 @@
   margin: 3px 3px 3px 3px;
 }
 .card .card-header .form-inline .form-group h4 {
-  color: #3f51b5;
+  color: #2196f3;
 }
 .card .card-header .faicon {
   float: right;

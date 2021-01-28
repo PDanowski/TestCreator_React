@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import SortIcon from '@material-ui/icons/Sort';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import './TestList.css';
 import { testListActionCreators } from "../../actions/TestListActions";
 class TestList extends React.Component {
@@ -47,7 +48,16 @@ class TestList extends React.Component {
         if (this.state.type != nextState.type) {
             return true;
         }
-        var newTestList = (_a = nextProps.testList) === null || _a === void 0 ? void 0 : _a.testList[nextProps.type];
+        var newTestListState = nextProps.testList;
+        if (newTestListState === undefined) {
+            console.log('shouldComponentUpdate newTestList undefined');
+            return false;
+        }
+        if (newTestListState.isLoading !== ((_a = this.props.testList) === null || _a === void 0 ? void 0 : _a.isLoading)) {
+            console.log('shouldComponentUpdate different length - update');
+            return true;
+        }
+        var newTestList = newTestListState.testList[nextProps.type];
         var oldTestList = (_b = this.props.testList) === null || _b === void 0 ? void 0 : _b.testList[nextProps.type];
         if (newTestList === undefined) {
             console.log('shouldComponentUpdate newTestList undefined');
@@ -67,16 +77,23 @@ class TestList extends React.Component {
         return false;
     }
     renderTestList() {
+        var _a;
         console.log('renderTestList start');
-        if (this.props.testList === undefined || this.props.testList.testList === undefined) {
-            return (React.createElement("div", null, "Loading..."));
+        if (this.props.testList === undefined || this.props.testList.testList === undefined || ((_a = this.props.testList) === null || _a === void 0 ? void 0 : _a.isLoading)) {
+            return (React.createElement("div", null,
+                "Loading...",
+                React.createElement("br", null),
+                React.createElement(CircularProgress, null)));
         }
         var key = this.state.type;
         var list = this.props.testList.testList[key];
         console.log('this.props.testList.testList.key is: ');
         console.log(list);
         if (list === undefined) {
-            return (React.createElement("div", null, "Loading..."));
+            return (React.createElement("div", null,
+                "Loading...",
+                React.createElement("br", null),
+                React.createElement(CircularProgress, null)));
         }
         return list.map((test) => {
             return (React.createElement("li", { className: "list-group-item" },

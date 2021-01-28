@@ -10,11 +10,13 @@ import InputIcon from '@material-ui/icons/Input';
 import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles';
 import { Link, useHistory, useLocation, Redirect  } from 'react-router-dom';
 import { isLoggedIn, logout } from '../../services/AuthService';
+import { blue } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             width: 'auto',
+            marginBottom: '15px',
             flexGrow: 1,
         },
         title: {
@@ -22,7 +24,13 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         button : {
             marginLeft: theme.spacing(1),
-            marginRight: theme.spacing(1)
+            marginRight: theme.spacing(1),
+            color: theme.palette.getContrastText(blue[500]),
+            backgroundColor: blue[500],
+            borderColor: '#fafafa',
+            '&:hover': {
+                backgroundColor: '#fafafa'
+            },
         },
         navbar: {
             position: 'relative',
@@ -117,9 +125,9 @@ export default function NavMenu() {
                                                 value="about"/>
                         <BottomNavigationAction label="Create test" icon={<AddIcon />} />
                     </BottomNavigation>
-                    {!isLogged ? <Button className={classes.button} color="inherit" startIcon={<InputIcon />} component={Link} to="/login">Login</Button> : null}
-                    {!isLogged ? <Button className={classes.button} color="inherit" startIcon={<AssignmentIndIcon />}>Register</Button> : null}
-                    {isLogged ? <Button className={classes.button} color="inherit" startIcon={<ExitToAppIcon />} onClick={() => handleLogout()}>Logout</Button> : null}
+                    {!isLogged ? <Button className={classes.button} variant="outlined" startIcon={<InputIcon />} component={Link} to="/login">Login</Button> : null}
+                    {!isLogged ? <Button className={classes.button} variant="outlined" startIcon={<AssignmentIndIcon />} component={Link} to="/register">Register</Button> : null}
+                    {isLogged ? <Button className={classes.button} variant="outlined" startIcon={<ExitToAppIcon />} onClick={() => handleLogout()}>Logout</Button> : null}
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />

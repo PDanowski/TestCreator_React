@@ -9,6 +9,16 @@ import configureStore from './store/configureStore';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { configureAuthInterceptor } from './services/AuthInterceptor';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { blue, pink } from '@material-ui/core/colors';
+
+
+const theme = createMuiTheme({
+    palette: {
+        primary: blue,
+        secondary: pink,
+    },
+});
 
 
 // Create browser history to use in the Redux store
@@ -20,11 +30,13 @@ const store = configureStore(history);
 configureAuthInterceptor();
 
 ReactDOM.render(
-    <Provider store={store}>
-        <ConnectedRouter history={history}>
-            <App />
-        </ConnectedRouter>
-    </Provider>,
+    <ThemeProvider theme={theme}>
+        <Provider store={store}>
+            <ConnectedRouter history={history}>
+                <App />
+            </ConnectedRouter>
+        </Provider>
+    </ThemeProvider>,
     document.getElementById('root'));
 
 registerServiceWorker();
