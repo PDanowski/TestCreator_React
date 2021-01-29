@@ -17,8 +17,6 @@ class TestList extends React.Component {
             title: this.getTitle()
         };
         this.props.getTestList(this.props.type);
-        console.log('ctor');
-        console.log(this.props.testList);
     }
     getIcon() {
         switch (this.props.type) {
@@ -44,21 +42,20 @@ class TestList extends React.Component {
     }
     shouldComponentUpdate(nextProps, nextState) {
         var _a, _b;
-        console.log('shouldComponentUpdate start');
         if (this.state.type != nextState.type) {
             return true;
         }
-        var newTestListState = nextProps.testList;
+        var newTestListState = nextProps.testListState;
         if (newTestListState === undefined) {
             console.log('shouldComponentUpdate newTestList undefined');
             return false;
         }
-        if (newTestListState.isLoading !== ((_a = this.props.testList) === null || _a === void 0 ? void 0 : _a.isLoading)) {
+        if (newTestListState.isLoading !== ((_a = this.props.testListState) === null || _a === void 0 ? void 0 : _a.isLoading)) {
             console.log('shouldComponentUpdate different length - update');
             return true;
         }
-        var newTestList = newTestListState.testList[nextProps.type];
-        var oldTestList = (_b = this.props.testList) === null || _b === void 0 ? void 0 : _b.testList[nextProps.type];
+        var newTestList = newTestListState.testLists[nextProps.type];
+        var oldTestList = (_b = this.props.testListState) === null || _b === void 0 ? void 0 : _b.testLists[nextProps.type];
         if (newTestList === undefined) {
             console.log('shouldComponentUpdate newTestList undefined');
             return false;
@@ -73,22 +70,18 @@ class TestList extends React.Component {
                 return true;
             }
         });
-        console.log('shouldComponentUpdate end');
         return false;
     }
     renderTestList() {
         var _a;
-        console.log('renderTestList start');
-        if (this.props.testList === undefined || this.props.testList.testList === undefined || ((_a = this.props.testList) === null || _a === void 0 ? void 0 : _a.isLoading)) {
+        if (this.props.testListState === undefined || this.props.testListState.testLists === undefined || ((_a = this.props.testListState) === null || _a === void 0 ? void 0 : _a.isLoading)) {
             return (React.createElement("div", null,
                 "Loading...",
                 React.createElement("br", null),
                 React.createElement(CircularProgress, null)));
         }
         var key = this.state.type;
-        var list = this.props.testList.testList[key];
-        console.log('this.props.testList.testList.key is: ');
-        console.log(list);
+        var list = this.props.testListState.testLists[key];
         if (list === undefined) {
             return (React.createElement("div", null,
                 "Loading...",
@@ -125,7 +118,7 @@ class TestList extends React.Component {
 //    };
 //}
 const mapStateToProps = (state) => ({
-    testList: state.testList
+    testListState: state.testList
 });
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({

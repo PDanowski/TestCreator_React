@@ -7,6 +7,7 @@ import Counter from './components/Counter';
 import FetchData from './components/FetchData';
 import Login from './components/login/Login';
 import Register from './components/register/Register';
+import TestSearchResult from './components/test/TestSearchResult';
 
 export default () => (
     <Layout>
@@ -15,6 +16,7 @@ export default () => (
         <Route path='/counter' component={Counter} />
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
+        <Route path='/search/:keyword' component={TestSearchResult} />
         <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
     </Layout>
 );

@@ -5,29 +5,23 @@ import { AppThunkAction } from '../store/index';
 const TEST_LIST_URL = "api/test";
 
 export const GET_TEST_LIST = 'GET_TEST_LIST';
+export const SEARCH_TEST_RESULT = 'SEARCH_TEST_RESULT';
 
-interface PendingTestListAction {
-    type: 'GET_TEST_LIST_PENDING';
+interface GetTestListAction {
+    type: 'GET_TEST_LIST_RECEIVED' | 'GET_TEST_LIST_ERROR' | 'GET_TEST_LIST_PENDING';
     tests: Test[];
     listType: string;
 }
 
-interface ReceivedTestListAction {
-    type: 'GET_TEST_LIST_RECEIVED';
+interface SearchTestsResultAction {
+    type: 'SEARCH_TEST_RESULT_RECEIVED' | 'SEARCH_TEST_RESULT_ERROR' | 'SEARCH_TEST_RESULT_PENDING';
     tests: Test[];
-    listType: string;
 }
 
-interface ErrorTestListAction {
-    type: 'GET_TEST_LIST_ERROR';
-    tests: Test[];
-    listType: string;
-}
-
-export type TestListAction = PendingTestListAction | ReceivedTestListAction | ErrorTestListAction;
+export type TestListAction = GetTestListAction | SearchTestsResultAction;
 
 export const testListActionCreators = {
-    getTestList: (type: string): AppThunkAction<TestListAction> => (dispatch, getState) => {
+    getTestList: (type: string): AppThunkAction<GetTestListAction> => (dispatch, getState) => {
 
         const appState = getState();
         if (appState) {
@@ -54,6 +48,21 @@ export const testListActionCreators = {
                 .catch(err => {
                     console.log(err);
                     dispatch({ type: 'GET_TEST_LIST_ERROR', tests: [], listType: type });
+                });
+        }
+    },
+    searchTests: (keyword: string): AppThunkAction<SearchTestsResultAction> => (dispatch, getState) => {
+
+        const appState = getState();
+        if (appState) {
+            dispatch({ type: 'SEARCH_TEST_RESULT_PENDING', tests: []});
+            axios.get<Test[]>(TEST_LIST_URL, { params: { keyword: keyword } })
+                .then(data => {
+                    dispatch({ type: 'SEARCH_TEST_RESULT_RECEIVED', tests: data.data});
+                })
+                .catch(err => {
+                    console.log(err);
+                    dispatch({ type: 'SEARCH_TEST_RESULT_ERROR', tests: []});
                 });
         }
     }

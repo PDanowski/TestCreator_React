@@ -1,19 +1,19 @@
 ﻿import * as React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from "redux"
+import { bindActionCreators } from "redux";
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import SortIcon from '@material-ui/icons/Sort';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import './TestList.css';
-import { testListActionCreators } from "../../actions/TestListActions"
-import { Test } from "../../interfaces/Test"
-import { TestListState } from "../../reducers/TestListReducer"
+import { testListActionCreators } from "../../actions/TestListActions";
+import { Test } from "../../interfaces/Test";
+import { TestListState } from "../../reducers/TestListReducer";
 import { ApplicationState } from '../../store';
 
 
 type StateProps = {
-    testList: TestListState | undefined;
+    testListState: TestListState | undefined;
 }
 type ComponentProps = {
     type: string;
@@ -36,10 +36,7 @@ class TestList extends React.Component<TestListProps, TestListComponentState>{
             title: this.getTitle()
         };
 
-        this.props.getTestList(this.props.type);  
-
-        console.log('ctor');
-        console.log( this.props.testList);
+        this.props.getTestList(this.props.type);
     }
 
     private getIcon() {
@@ -67,25 +64,24 @@ class TestList extends React.Component<TestListProps, TestListComponentState>{
     }
 
     shouldComponentUpdate(nextProps: TestListProps, nextState: TestListComponentState) {
-        console.log('shouldComponentUpdate start');
 
         if (this.state.type != nextState.type) {
             return true;
         }
 
-        var newTestListState = nextProps.testList;
+        var newTestListState = nextProps.testListState;
         if (newTestListState === undefined) {
             console.log('shouldComponentUpdate newTestList undefined');
             return false;
         }
 
-        if (newTestListState.isLoading !== this.props.testList?.isLoading) {
+        if (newTestListState.isLoading !== this.props.testListState?.isLoading) {
             console.log('shouldComponentUpdate different length - update');
             return true;
         }
 
-        var newTestList = newTestListState.testList[nextProps.type];
-        var oldTestList = this.props.testList?.testList[nextProps.type];
+        var newTestList = newTestListState.testLists[nextProps.type];
+        var oldTestList = this.props.testListState?.testLists[nextProps.type];
 
         if (newTestList === undefined) {
             console.log('shouldComponentUpdate newTestList undefined');
@@ -104,13 +100,11 @@ class TestList extends React.Component<TestListProps, TestListComponentState>{
             }
         });
 
-        console.log('shouldComponentUpdate end');
         return false;
     }
 
     private renderTestList() {
-        console.log('renderTestList start');
-        if (this.props.testList === undefined || this.props.testList.testList === undefined || this.props.testList?.isLoading) {
+        if (this.props.testListState === undefined || this.props.testListState.testLists === undefined || this.props.testListState?.isLoading) {
             return (
                 <div>
                     Loading...<br/>
@@ -120,10 +114,7 @@ class TestList extends React.Component<TestListProps, TestListComponentState>{
             );
         }
         var key = this.state.type;
-        var list = this.props.testList.testList[key];
-
-        console.log('this.props.testList.testList.key is: ');
-        console.log(list);
+        var list = this.props.testListState.testLists[key];
 
         if (list === undefined) {
             return (
@@ -183,7 +174,7 @@ class TestList extends React.Component<TestListProps, TestListComponentState>{
 //}
 
 const mapStateToProps = (state: ApplicationState) => ({
-    testList: state.testList
+    testListState: state.testList
 });
 
 const mapDispatchToProps = (dispatch: any) => {

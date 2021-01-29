@@ -47,6 +47,7 @@
     <None Remove="ClientApp\src\components\login\Login.tsx" />
     <None Remove="ClientApp\src\components\register\Register.tsx" />
     <None Remove="ClientApp\src\components\test\TestList.tsx" />
+    <None Remove="ClientApp\src\components\test\TestSearchResult.tsx" />
     <None Remove="ClientApp\src\interfaces\Test.tsx" />
     <None Remove="ClientApp\src\interfaces\TokenResponse.tsx" />
     <None Remove="ClientApp\src\interfaces\User.tsx" />
@@ -77,6 +78,7 @@
     <TypeScriptCompile Include="ClientApp\src\components\login\Login.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\register\Register.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\test\TestList.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\components\test\TestSearchResult.tsx" />
     <TypeScriptCompile Include="ClientApp\src\interfaces\Test.tsx" />
     <TypeScriptCompile Include="ClientApp\src\interfaces\TokenResponse.tsx" />
     <TypeScriptCompile Include="ClientApp\src\interfaces\User.tsx" />

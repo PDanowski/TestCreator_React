@@ -90,6 +90,7 @@ export default function NavMenu() {
     var [value, setValue] = React.useState('');
     const isLogged = isLoggedIn();
     const history = useHistory();
+    const [keyword, setKeyword] = React.useState('');
 
     value = route;
 
@@ -101,7 +102,14 @@ export default function NavMenu() {
         return false;
     }
 
+    function handleSearch() {
+        const url = `/search/${keyword}`;
+        console.log(url);
+        history.push(url);
+    }
+
     return (
+
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
@@ -139,6 +147,13 @@ export default function NavMenu() {
                                 input: classes.inputInput,
                             }}
                             inputProps={{ 'aria-label': 'search' }}
+                            value={keyword}
+                            onChange={e => setKeyword((e.target as HTMLInputElement).value)}
+                            onKeyPress={e => {
+                                if (e.key === 'Enter') {
+                                    handleSearch();
+                                }
+                            }}
                         />
                     </div>
                 </Toolbar>

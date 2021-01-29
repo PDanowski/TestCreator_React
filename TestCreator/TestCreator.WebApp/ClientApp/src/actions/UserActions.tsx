@@ -6,17 +6,13 @@ const REGISTER_URL = "api/user";
 
 export const ADD_USER = 'ADD_USER';
 
-interface ReceivedAddUserAction {
-    type: 'ADD_USER_RECEIVED';
+interface AddUserAction {
+    type: 'ADD_USER_RECEIVED' | 'ADD_USER_ERROR';
     user: User;
 }
 
-interface ErrorAddUserAction {
-    type: 'ADD_USER_ERROR';
-    user: User;
-}
 
-export type UserAction = ReceivedAddUserAction | ErrorAddUserAction;
+export type UserAction = AddUserAction;
 
 export const userActionCreators = {
     addUser: (user: User): AppThunkAction<UserAction> => (dispatch, getState) => {

@@ -17,7 +17,6 @@ const unloadedState: UserState = { user: {} as User, isFaulted: false, message: 
     const action = incomingAction as UserAction;
 
     console.log(action.type);
-    console.log('state');
     console.log(state);
     if (state === undefined) {
         return unloadedState;
@@ -25,7 +24,7 @@ const unloadedState: UserState = { user: {} as User, isFaulted: false, message: 
 
     switch (action.type) {
 
-        case `${ADD_USER}_RECEIVED`:
+        case `ADD_USER_RECEIVED`:
             if (state.user === undefined) {
                 return {
                     ...state,
@@ -34,14 +33,13 @@ const unloadedState: UserState = { user: {} as User, isFaulted: false, message: 
                 };
             }
 
-        console.log({ ...state.user })
         return {
             ...state,
             isFaulted: false,
             isCreated: true
         }
 
-        case `${ADD_USER}_ERROR`:
+        case `ADD_USER_ERROR`:
         return {
             ...state,
             isFaulted: true,
