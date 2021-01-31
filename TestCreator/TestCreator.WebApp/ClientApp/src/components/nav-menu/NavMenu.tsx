@@ -104,7 +104,6 @@ export default function NavMenu() {
 
     function handleSearch() {
         const url = `/search/${keyword}`;
-        console.log(url);
         history.push(url);
     }
 

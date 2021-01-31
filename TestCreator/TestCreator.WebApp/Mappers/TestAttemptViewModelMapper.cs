@@ -9,14 +9,14 @@ namespace TestCreator.WebApp.Mappers
 {
     public class TestAttemptViewModelMapper : ITestAttemptViewModelMapper
     {
-        private readonly IAnswerViewModelConverter _answerViewModelConverter;
+        private readonly ITestAttemptAnswerViewModelConverter _testAttemptAnswerViewModelConverter;
         private readonly IQuestionViewModelConverter _questionViewModelConverter;
 
         public TestAttemptViewModelMapper(
-            IAnswerViewModelConverter answerViewModelConverter, 
+            ITestAttemptAnswerViewModelConverter testAttemptAnswerViewModelConverter, 
             IQuestionViewModelConverter questionViewModelConverter)
         {
-            _answerViewModelConverter = answerViewModelConverter;
+            _testAttemptAnswerViewModelConverter = testAttemptAnswerViewModelConverter;
             _questionViewModelConverter = questionViewModelConverter;
         }
 
@@ -39,9 +39,8 @@ namespace TestCreator.WebApp.Mappers
                 viewModel.TestAttemptEntries.Add(new TestAttemptEntryViewModel
                 {
                     Question = _questionViewModelConverter.Convert(question),
-                    Answers = _answerViewModelConverter
+                    Answers = _testAttemptAnswerViewModelConverter
                         .Convert(testAttempt.Answers.Where(a => a.QuestionId == question.Id))
-                        .Cast<TestAttemptAnswerViewModel>()
                         .ToList()
                 });
             }

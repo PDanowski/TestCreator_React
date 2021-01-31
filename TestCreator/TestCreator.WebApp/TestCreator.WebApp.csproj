@@ -40,17 +40,26 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\actions\TestAttemptActions.tsx" />
     <None Remove="ClientApp\src\actions\TestListActions.tsx" />
     <None Remove="ClientApp\src\actions\UserActions.tsx" />
     <None Remove="ClientApp\src\components\about\about.tsx" />
     <None Remove="ClientApp\src\components\home\Home.tsx" />
     <None Remove="ClientApp\src\components\login\Login.tsx" />
     <None Remove="ClientApp\src\components\register\Register.tsx" />
+    <None Remove="ClientApp\src\components\test\TestAttempt.tsx" />
     <None Remove="ClientApp\src\components\test\TestList.tsx" />
     <None Remove="ClientApp\src\components\test\TestSearchResult.tsx" />
+    <None Remove="ClientApp\src\interfaces\Answer.tsx" />
+    <None Remove="ClientApp\src\interfaces\Question.tsx" />
     <None Remove="ClientApp\src\interfaces\Test.tsx" />
+    <None Remove="ClientApp\src\interfaces\TestAttempt.tsx" />
+    <None Remove="ClientApp\src\interfaces\TestAttemptAnswer.tsx" />
+    <None Remove="ClientApp\src\interfaces\TestAttemptEntry.tsx" />
+    <None Remove="ClientApp\src\interfaces\TestAttemptResult.tsx" />
     <None Remove="ClientApp\src\interfaces\TokenResponse.tsx" />
     <None Remove="ClientApp\src\interfaces\User.tsx" />
+    <None Remove="ClientApp\src\reducers\TestAttemptReducer.tsx" />
     <None Remove="ClientApp\src\reducers\TestListReducer.tsx" />
     <None Remove="ClientApp\src\reducers\UserReducer.tsx" />
     <None Remove="ClientApp\src\services\AuthInterceptor.tsx" />
@@ -71,6 +80,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\actions\TestAttemptActions.tsx" />
     <TypeScriptCompile Include="ClientApp\src\actions\UserActions.tsx" />
     <TypeScriptCompile Include="ClientApp\src\actions\TestListActions.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\about\About.tsx" />
@@ -79,9 +89,17 @@
     <TypeScriptCompile Include="ClientApp\src\components\register\Register.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\test\TestList.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\test\TestSearchResult.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\components\test\TestAttempt.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\interfaces\Answer.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\interfaces\Question.tsx" />
     <TypeScriptCompile Include="ClientApp\src\interfaces\Test.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\interfaces\TestAttempt.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\interfaces\TestAttemptAnswer.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\interfaces\TestAttemptEntry.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\interfaces\TestAttemptResult.tsx" />
     <TypeScriptCompile Include="ClientApp\src\interfaces\TokenResponse.tsx" />
     <TypeScriptCompile Include="ClientApp\src\interfaces\User.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\reducers\TestAttemptReducer.tsx" />
     <TypeScriptCompile Include="ClientApp\src\reducers\TestListReducer.tsx" />
     <TypeScriptCompile Include="ClientApp\src\reducers\UserReducer.tsx" />
     <TypeScriptCompile Include="ClientApp\src\services\AuthInterceptor.tsx" />

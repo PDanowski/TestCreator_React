@@ -1,4 +1,4 @@
-﻿import { GET_TEST_LIST, TestListAction } from "../actions/TestListActions";
+﻿import { TestListAction } from "../actions/TestListActions";
 import { Test } from "../interfaces/Test";
 import { Action, Reducer } from 'redux';
 

@@ -2,6 +2,7 @@ import * as WeatherForecasts from './WeatherForecasts';
 import * as Counter from './Counter';
 import * as TestList from '../reducers/TestListReducer';
 import * as User from '../reducers/UserReducer';
+import * as TestAttempt from '../reducers/TestAttemptReducer';
 import { reducer as reduxFormReducer } from 'redux-form';
 // Whenever an action is dispatched, Redux will update each top-level application state property using
 // the reducer with the matching name. It's important that the names match exactly, and that the reducer
@@ -11,6 +12,7 @@ export const reducers = {
     weatherForecasts: WeatherForecasts.reducer,
     testList: TestList.reducer,
     user: User.reducer,
-    form: reduxFormReducer
+    form: reduxFormReducer,
+    testAttempt: TestAttempt.reducer
 };
 //# sourceMappingURL=index.js.map

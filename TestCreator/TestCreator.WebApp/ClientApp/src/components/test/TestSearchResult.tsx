@@ -8,6 +8,8 @@ import { TestListState } from "../../reducers/TestListReducer";
 import { ApplicationState } from '../../store';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import { Redirect } from 'react-router';
+import { useHistory, Link } from 'react-router-dom';
 
 
 type StateProps = {
@@ -24,7 +26,7 @@ type TestSearchResultProps = StateProps & DispatchProps & ComponentProps;
 class TestSearchResult extends React.Component<TestSearchResultProps> {
     constructor(props: TestSearchResultProps) {
         super(props);
-        console.log(this.props);
+
         this.props.searchTests(this.props.keyword);
     }
 
@@ -88,10 +90,10 @@ class TestSearchResult extends React.Component<TestSearchResultProps> {
 
         return this.props.testListState.searchResultTests.map((test: Test) => {
             return (
-                <li className="list-group-item">
+                <Link to={'/testAttempt/' + test.Id}><li className="list-group-item" >
                     <img src={'https://picsum.photos/id/' + test.Id + '/50/50/'} alt={test.Id.toString()} className="rounded-circle" />
                     <span>{test.Title}</span>
-                </li>
+                </li></Link>
             );
         });
     }
@@ -111,7 +113,7 @@ class TestSearchResult extends React.Component<TestSearchResultProps> {
                         </div>
                     </div>
                     <div className="card-body">
-                        {this.props.testListState.searchResultTests?.length === 0 ? <h5>No results</h5> :
+                        {this.props.testListState?.searchResultTests?.length === 0 ? <h5>No results</h5> :
                         <ul className="list-group">
                             {this.renderTestList()}
                          </ul>}

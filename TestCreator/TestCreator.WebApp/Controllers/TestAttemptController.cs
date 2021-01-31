@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TestCreator.Data.Queries;
 using TestCreator.Data.Queries.Results;
@@ -31,7 +32,7 @@ namespace TestCreator.WebApp.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Single TestAttemptViewModel with given {id}</returns>
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> Get(int id)
         {
             var queryResult = await _queryDispatcher.DispatchAsync<GetTestAttemptQuery, GetTestAttemptQueryResult>(new GetTestAttemptQuery
@@ -58,7 +59,7 @@ namespace TestCreator.WebApp.Controllers
         /// <param name="viewModel">TestAttemptViewModel with data</param>
         /// <returns>Calculate result and return TestAttemptResultViewModel for given {viewModel}</returns>
         [HttpPost]
-        public IActionResult CalculateResult(TestAttemptViewModel viewModel)
+        public IActionResult CalculateResult([FromBody]TestAttemptViewModel viewModel)
         {
             if (viewModel == null)
             {

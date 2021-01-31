@@ -33,7 +33,7 @@ namespace TestCreator.Tests.Controllers
             _queryDispatcherMock = _fixture.Freeze<Mock<IQueryDispatcher>>();
             _testResultCalculationServiceMock = new Mock<ITestResultCalculationService>();
             _controller = new TestAttemptController(
-                new TestAttemptViewModelMapper(new AnswerViewModelConverter(), new QuestionViewModelConverter()),
+                new TestAttemptViewModelMapper(new TestAttemptAnswerViewModelConverter(), new QuestionViewModelConverter()),
                 _testResultCalculationServiceMock.Object, 
                 _queryDispatcherMock.Object);
         }

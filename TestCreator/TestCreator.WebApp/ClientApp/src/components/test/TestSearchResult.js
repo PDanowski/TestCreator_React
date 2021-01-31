@@ -5,10 +5,10 @@ import './TestSearchResult.css';
 import { testListActionCreators } from "../../actions/TestListActions";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import { Link } from 'react-router-dom';
 class TestSearchResult extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props);
         this.props.searchTests(this.props.keyword);
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -58,13 +58,14 @@ class TestSearchResult extends React.Component {
                 React.createElement(CircularProgress, null)));
         }
         return this.props.testListState.searchResultTests.map((test) => {
-            return (React.createElement("li", { className: "list-group-item" },
-                React.createElement("img", { src: 'https://picsum.photos/id/' + test.Id + '/50/50/', alt: test.Id.toString(), className: "rounded-circle" }),
-                React.createElement("span", null, test.Title)));
+            return (React.createElement(Link, { to: '/testAttempt/' + test.Id },
+                React.createElement("li", { className: "list-group-item" },
+                    React.createElement("img", { src: 'https://picsum.photos/id/' + test.Id + '/50/50/', alt: test.Id.toString(), className: "rounded-circle" }),
+                    React.createElement("span", null, test.Title))));
         });
     }
     render() {
-        var _a;
+        var _a, _b;
         return (React.createElement(React.Fragment, null,
             React.createElement("div", { className: "card {{class}}" },
                 React.createElement("div", { className: "card-header" },
@@ -75,7 +76,7 @@ class TestSearchResult extends React.Component {
                             React.createElement("h4", null,
                                 "Search results for keyword: ",
                                 this.props.keyword)))),
-                React.createElement("div", { className: "card-body" }, ((_a = this.props.testListState.searchResultTests) === null || _a === void 0 ? void 0 : _a.length) === 0 ? React.createElement("h5", null, "No results") :
+                React.createElement("div", { className: "card-body" }, ((_b = (_a = this.props.testListState) === null || _a === void 0 ? void 0 : _a.searchResultTests) === null || _b === void 0 ? void 0 : _b.length) === 0 ? React.createElement("h5", null, "No results") :
                     React.createElement("ul", { className: "list-group" }, this.renderTestList())))));
     }
 }

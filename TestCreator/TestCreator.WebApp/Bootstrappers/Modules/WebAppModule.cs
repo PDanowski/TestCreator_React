@@ -27,6 +27,7 @@ namespace TestCreator.WebApp.Bootstrappers.Modules
             builder.RegisterType<QuestionViewModelConverter>().As<IQuestionViewModelConverter>();
             builder.RegisterType<ResultViewModelConverter>().As<IResultViewModelConverter>();
             builder.RegisterType<UserViewModelConverter>().As<IUserViewModelConverter>();
+            builder.RegisterType<TestAttemptAnswerViewModelConverter>().As<ITestAttemptAnswerViewModelConverter>();
 
             builder.RegisterType<ApplicationUserDtoConverter>().As<IApplicationUserDtoConverter>();
             builder.RegisterType<AnswerDtoConverter>().As<IAnswerDtoConverter>();
